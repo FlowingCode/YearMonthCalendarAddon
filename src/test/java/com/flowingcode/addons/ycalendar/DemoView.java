@@ -18,7 +18,7 @@
  * #L%
  */
 
-package com.flowingcode.addons.template;
+package com.flowingcode.addons.ycalendar;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -32,6 +32,6 @@ public class DemoView extends VerticalLayout implements BeforeEnterObserver {
 
   @Override
   public void beforeEnter(BeforeEnterEvent event) {
-    event.forwardTo(TemplateDemoView.class);
+    event.forwardTo(YearMonthCalendarDemoView.class);
   }
 }

@@ -5,10 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.flowingcode.vaadin.addons</groupId>
-	<artifactId>template-addon</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<name>Template Add-on</name>
-	<description>Template Add-on for Vaadin Flow</description>
+	<artifactId>year-month-calendar</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
+	<name>Year Month Calendar Add-on</name>
+	<description>Year Month Calendar Add-on for Vaadin Flow</description>
 
 	<properties>
 		<vaadin.version>14.4.9</vaadin.version>
@@ -35,9 +35,9 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/FlowingCode/AddonStarter14</url>
-		<connection>scm:git:git://github.com/FlowingCode/AddonStarter14.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:/FlowingCode/AddonStarter14.git</developerConnection>
+		<url>https://github.com/FlowingCode/YearMonthCalendarAddon</url>
+		<connection>scm:git:git://github.com/FlowingCode/YearMonthCalendarAddon.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:/FlowingCode/YearMonthCalendarAddon.git</developerConnection>
 		<tag>master</tag>
 	</scm>
 

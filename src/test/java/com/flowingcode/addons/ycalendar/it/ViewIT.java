@@ -18,7 +18,7 @@
  * #L%
  */
 
-package com.flowingcode.addons.template.it;
+package com.flowingcode.addons.ycalendar.it;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;

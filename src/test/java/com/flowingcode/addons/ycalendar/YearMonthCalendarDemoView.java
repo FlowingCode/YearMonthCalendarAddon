@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.flowingcode.addons.template;
+package com.flowingcode.addons.ycalendar;
 
 import com.flowingcode.addons.DemoLayout;
 import com.flowingcode.vaadin.addons.GithubLink;
@@ -25,16 +25,16 @@ import com.flowingcode.vaadin.addons.demo.TabbedDemo;
 import com.vaadin.flow.router.Route;
 
 @SuppressWarnings("serial")
-@Route(value = "template", layout = DemoLayout.class)
-@GithubLink("https://github.com/FlowingCode/AddonsStarter14")
-public class TemplateDemoView extends TabbedDemo {
+@Route(value = "year-month-calendar", layout = DemoLayout.class)
+@GithubLink("https://github.com/FlowingCode/YearMonthCalendarAddon")
+public class YearMonthCalendarDemoView extends TabbedDemo {
 
   private static final String TEMPLATE_ADDON_DEMO = "Template Addon Demo";
   private static final String TEMPLATE_ADDON_SOURCE =
-      "https://github.com/FlowingCode/AddonStarter14/blob/master/src/test/java/com/flowingcode/vaadin/addons/template/TemplateDemoView.java";
+      "https://github.com/FlowingCode/YearMonthCalendarAddon/blob/master/src/test/java/com/flowingcode/vaadin/addons/ycalendar/YearMonthCalendarDemoView.java";
 
-  public TemplateDemoView() {
-    addDemo(new TemplateAddon(), TEMPLATE_ADDON_DEMO, TEMPLATE_ADDON_SOURCE);
+  public YearMonthCalendarDemoView() {
+    addDemo(new YearMonthCalendar(), TEMPLATE_ADDON_DEMO, TEMPLATE_ADDON_SOURCE);
     setSizeFull();
   }
 }

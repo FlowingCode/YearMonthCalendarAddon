@@ -17,9 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package com.flowingcode.addons.template.test;
+package com.flowingcode.addons.ycalendar.test;
 
-import com.flowingcode.addons.template.TemplateAddon;
+import com.flowingcode.addons.ycalendar.YearMonthCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class SerializationTest {
   @Test
   public void testSerialization() throws ClassNotFoundException, IOException {
     try {
-      testSerializationOf(new TemplateAddon());
+      testSerializationOf(new YearMonthCalendar());
     } catch (Exception e) {
       Assert.fail("Problem while testing serialization: " + e.getMessage());
     }
