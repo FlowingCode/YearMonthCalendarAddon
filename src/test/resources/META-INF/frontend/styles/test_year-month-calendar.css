@@ -1,0 +1,11 @@
+[part='date'].red {
+  color: var(--lumo-error-contrast-color);
+}
+
+[part='date'].red::before {
+  background-color: var(--lumo-error-color);
+}
+
+[part='date'].weekend {
+  color: var(--lumo-error-color);
+}

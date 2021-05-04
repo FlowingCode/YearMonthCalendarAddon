@@ -1,0 +1,138 @@
+/*-
+ * #%L
+ * XTerm Console Addon
+ * %%
+ * Copyright (C) 2020 - 2021 Flowing Code
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+
+import {MonthCalendarMixin} from './month-calendar-mixin.js'
+
+export class FcMonthCalendarElement extends MonthCalendarMixin {
+  static get is() { return 'fc-month-calendar'; }
+
+  static get properties() {
+    return {
+      /**
+       * Flag stating whether the component is in readonly mode.
+       */
+	  readonly: {
+        type: Boolean,
+        reflectToAttribute: true,
+      },
+      
+            /**
+        * The object used to localize this component.
+        * To change the default localization, replace the entire
+        * _i18n_ object or just the property you want to modify.
+        */ 
+      i18n: {
+          type: Object,
+          value: () => {
+            return {
+              monthNames: [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+              ], 
+              weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+              weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+              firstDayOfWeek: 0,
+              week: 'Week',
+              calendar: 'Calendar',
+              clear: 'Clear',
+              today: 'Today',
+              cancel: 'Cancel',
+              formatTitle : (monthName, fullYear) => monthName + ' ' + fullYear,
+              formatDate :  (dateObject) => new Date(date.year, date.month-1, date.day).toISOString().replace(/T.*/,'')
+            }
+          }
+     },
+      
+
+	}
+  }
+	
+  static get template() {
+		return html`				
+		<style>
+			:host([readonly]) {
+			  pointer-events: none;
+			}
+			:host { 
+				min-width: 11em;
+				padding: 0;
+				margin: 0;
+				padding-top: 1ex;
+				--lumo-font-size-l: 11px;
+				--lumo-font-size-xs: 10px;
+    			--lumo-font-size-m: 11px;
+				font-size: var(--lumo-font-size-m);
+			}
+		</style>
+		${super.template}
+	`;}
+  
+  _setStyleForDay(i,className) { 
+	var e = this.$.element.shadowRoot.querySelectorAll("[part='date'][role='button']")[i-1];
+	if (className) {
+		e.className=className;
+	} else {
+		e.removeAttribute('class');
+	}
+  }
+
+  ready() {
+	super.ready();
+	var styles = `
+		[part='date'][class]::before { 
+		  box-shadow: none;
+		}
+		
+		[part='date'][selected] {
+		  color: unset;
+		}
+		
+		[part='date'][selected]::before {
+		  background-color: unset;  
+		  border: 1px solid var(--lumo-primary-color);
+	}`;
+		
+	this.$.element.shadowRoot.querySelector("style").innerHTML+=styles; 
+  }
+
+  connectedCallback() {
+	super.connectedCallback();		
+  }
+	
+  disconnectedCallback() {
+	super.disconnectedCallback();
+  }
+	
+
+
+}
+
+customElements.define(FcMonthCalendarElement.is, FcMonthCalendarElement);

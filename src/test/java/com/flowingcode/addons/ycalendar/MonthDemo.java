@@ -17,20 +17,27 @@
  * limitations under the License.
  * #L%
  */
-
 package com.flowingcode.addons.ycalendar;
 
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.component.html.Div;
+import java.time.DayOfWeek;
+import java.time.YearMonth;
 
-@SuppressWarnings("serial")
-@Route("")
-public class DemoView extends VerticalLayout implements BeforeEnterObserver {
+public class MonthDemo extends Div {
 
-  @Override
-  public void beforeEnter(BeforeEnterEvent event) {
-    event.forwardTo(YearMonthCalendarDemoView.class);
+  public MonthDemo() {
+
+    MonthCalendar calendar = new MonthCalendar(YearMonth.now());
+
+    calendar.setClassNameGenerator(date -> {
+      if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+        return "weekend";
+      }
+      return null;
+    });
+
+
+    add(calendar);
   }
+
 }

@@ -19,7 +19,7 @@
  */
 package com.flowingcode.addons.ycalendar;
 
-import com.flowingcode.addons.DemoLayout;
+import com.flowingcode.vaadin.addons.DemoLayout;
 import com.flowingcode.vaadin.addons.GithubLink;
 import com.flowingcode.vaadin.addons.demo.TabbedDemo;
 import com.vaadin.flow.router.Route;
@@ -29,12 +29,14 @@ import com.vaadin.flow.router.Route;
 @GithubLink("https://github.com/FlowingCode/YearMonthCalendarAddon")
 public class YearMonthCalendarDemoView extends TabbedDemo {
 
-  private static final String TEMPLATE_ADDON_DEMO = "Template Addon Demo";
   private static final String TEMPLATE_ADDON_SOURCE =
       "https://github.com/FlowingCode/YearMonthCalendarAddon/blob/master/src/test/java/com/flowingcode/vaadin/addons/ycalendar/YearMonthCalendarDemoView.java";
 
   public YearMonthCalendarDemoView() {
-    addDemo(new YearMonthCalendar(), TEMPLATE_ADDON_DEMO, TEMPLATE_ADDON_SOURCE);
+    addDemo(new YearDemo(), "Year", TEMPLATE_ADDON_SOURCE);
+    addDemo(new YearReadonlyDemo(), "Year, readonly");
+    addDemo(new MonthDemo(), "Month");
     setSizeFull();
   }
+
 }

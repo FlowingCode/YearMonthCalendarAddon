@@ -230,7 +230,6 @@
 					<useTestScope>true</useTestScope>
 					<webAppConfig>
 						<resourceBases>
-							<resourceBase>src/test/resources/META-INF/resources</resourceBase>
 							<resourceBase>src/main/resources/META-INF/resources</resourceBase>
 						</resourceBases>
 					</webAppConfig>

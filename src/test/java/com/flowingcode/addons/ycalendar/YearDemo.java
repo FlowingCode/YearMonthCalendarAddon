@@ -17,20 +17,31 @@
  * limitations under the License.
  * #L%
  */
-
 package com.flowingcode.addons.ycalendar;
 
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Div;
+import java.time.DayOfWeek;
+import java.time.Month;
 
-@SuppressWarnings("serial")
-@Route("")
-public class DemoView extends VerticalLayout implements BeforeEnterObserver {
+@CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
+public class YearDemo extends Div {
 
-  @Override
-  public void beforeEnter(BeforeEnterEvent event) {
-    event.forwardTo(YearMonthCalendarDemoView.class);
+  public YearDemo() {
+
+    YearCalendar calendar = new YearCalendar();
+
+    calendar.setClassNameGenerator(date -> {
+      if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+        return "weekend";
+      }
+      if (date.getDayOfMonth() == 1 && date.getMonth().equals(Month.JANUARY)) {
+        return "red";
+      }
+      return null;
+    });
+
+    add(calendar);
   }
+
 }

@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.flowingcode.addons;
+package com.flowingcode.vaadin.addons;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.RouterLayout;
