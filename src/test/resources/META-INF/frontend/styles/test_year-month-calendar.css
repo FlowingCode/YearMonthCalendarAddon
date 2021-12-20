@@ -1,8 +1,8 @@
-[part='date'].red {
+[part='date'].holiday {
   color: var(--lumo-error-contrast-color);
 }
 
-[part='date'].red::before {
+[part='date'].holiday::before {
   background-color: var(--lumo-error-color);
 }
 

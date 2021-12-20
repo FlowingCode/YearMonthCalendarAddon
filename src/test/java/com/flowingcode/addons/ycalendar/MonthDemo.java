@@ -31,7 +31,7 @@ public class MonthDemo extends Div {
 
     calendar.setClassNameGenerator(date -> {
       if (TestUtils.isPublicHoliday(date)) {
-        return "red";
+        return "holiday";
       }
       if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
         return "weekend";
