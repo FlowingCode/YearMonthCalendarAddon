@@ -22,7 +22,6 @@ package com.flowingcode.addons.ycalendar;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import java.time.DayOfWeek;
-import java.time.Month;
 
 @CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
 public class YearDemo extends Div {
@@ -32,11 +31,11 @@ public class YearDemo extends Div {
     YearCalendar calendar = new YearCalendar();
 
     calendar.setClassNameGenerator(date -> {
+      if (TestUtils.isPublicHoliday(date)) {
+        return "red";
+      }
       if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
         return "weekend";
-      }
-      if (date.getDayOfMonth() == 1 && date.getMonth().equals(Month.JANUARY)) {
-        return "red";
       }
       return null;
     });

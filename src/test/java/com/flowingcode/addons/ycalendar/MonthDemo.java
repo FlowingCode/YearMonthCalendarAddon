@@ -30,12 +30,14 @@ public class MonthDemo extends Div {
     MonthCalendar calendar = new MonthCalendar(YearMonth.now());
 
     calendar.setClassNameGenerator(date -> {
+      if (TestUtils.isPublicHoliday(date)) {
+        return "red";
+      }
       if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
         return "weekend";
       }
       return null;
     });
-
 
     add(calendar);
   }
