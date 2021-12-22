@@ -29,12 +29,12 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
       /**
        * Flag stating whether the component is in readonly mode.
        */
-	  readonly: {
+      readonly: {
         type: Boolean,
         reflectToAttribute: true,
       },
       
-            /**
+      /**
         * The object used to localize this component.
         * To change the default localization, replace the entire
         * _i18n_ object or just the property you want to modify.
@@ -72,67 +72,95 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
      },
       
 
-	}
+    }
   }
-	
+    
   static get template() {
-		return html`				
-		<style>
-			:host([readonly]) {
-			  pointer-events: none;
-			}
-			:host { 
-				min-width: 11em;
-				padding: 0;
-				margin: 0;
-				padding-top: 1ex;
-				--lumo-font-size-l: 11px;
-				--lumo-font-size-xs: 10px;
-    			--lumo-font-size-m: 11px;
-				font-size: var(--lumo-font-size-m);
-			}
-		</style>
-		${super.template}
-	`;}
+        return html`
+        <style>
+            :host([readonly]) {
+              pointer-events: none;
+            }
+            :host { 
+                min-width: 11em;
+                padding: 0;
+                margin: 0;
+                padding-top: 1ex;
+                --lumo-font-size-l: 11px;
+                --lumo-font-size-xs: 10px;
+                --lumo-font-size-m: 11px;
+                font-size: var(--lumo-font-size-m);
+            }
+            vaadin-month-calendar:focus { 
+                outline: none;
+            } 
+        </style>
+        ${super.template}
+    `;}
   
   _setStyleForDay(i,className) { 
-	var e = this.$.element.shadowRoot.querySelectorAll("[part='date'][role='button']")[i-1];
-	if (className) {
-		e.className=className;
-	} else {
-		e.removeAttribute('class');
-	}
+    let e = this.$.element.shadowRoot.querySelectorAll("[part='date'][role='button']")[i-1];
+    if (className) {
+        e.className=className;
+    } else {
+        e.removeAttribute('class');
+    }
   }
 
   ready() {
-	super.ready();
-	var styles = `
-		[part='date'][class]::before { 
-		  box-shadow: none;
-		}
-		
-		[part='date'][selected] {
-		  color: unset;
-		}
-		
-		[part='date'][selected]::before {
-		  background-color: unset;  
-		  border: 1px solid var(--lumo-primary-color);
-	}`;
-		
-	this.$.element.shadowRoot.querySelector("style").innerHTML+=styles; 
+    super.ready();
+    let styles = `
+        [part='date'][class]::before { 
+          box-shadow: none;
+        }
+        
+        [part='date'][selected] {
+          color: unset;
+        }
+        
+        [part='date'][selected]::before {
+          background-color: unset;  
+          border: 1px solid var(--lumo-primary-color);
+    }`;
+        
+    this.$.element.shadowRoot.querySelector("style").innerHTML+=styles;
+    this.$.element.addEventListener('keydown', this._onKeyDown.bind(this)); 
   }
 
   connectedCallback() {
-	super.connectedCallback();		
+    super.connectedCallback();        
   }
-	
+    
   disconnectedCallback() {
-	super.disconnectedCallback();
+    super.disconnectedCallback();
   }
-	
 
+  _onKeyDown(ev) {
+    if (ev.model) return;
+    if (ev.ctrlKey) return;
+    let delta = 0;
 
+    switch (this._eventKey(ev)) {
+        case 'left':  delta=-1; break;
+        case 'right': delta=+1; break;
+        case 'up':    delta=-7; break;
+        case 'down':  delta=+7; break;
+    }    
+    
+    if (delta) {
+      ev.preventDefault();
+      let d = this.selectedDate;
+      if (d) {
+        let newDate = new Date(d.getFullYear(), d.getMonth(), d.getDate()+delta);
+        if (newDate.getMonth()==this.selectedDate.getMonth()) {
+        	ev.stopPropagation();
+            this.selectedDate = newDate;
+        }
+      }
+    }
+  }
+      
+  
 }
 
 customElements.define(FcMonthCalendarElement.is, FcMonthCalendarElement);

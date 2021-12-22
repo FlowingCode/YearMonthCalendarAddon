@@ -19,10 +19,12 @@
  */
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 
+import {IronA11yKeysBehavior} from '@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
+import {ShadowFocusMixin} from '@vaadin/field-base/src/shadow-focus-mixin.js';
 import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
 
-export class MonthCalendarMixin extends ThemableMixin(PolymerElement) {
+export class MonthCalendarMixin extends ShadowFocusMixin(ThemableMixin(PolymerElement)) {
 
   static get properties() {
     return {
@@ -74,7 +76,34 @@ export class MonthCalendarMixin extends ThemableMixin(PolymerElement) {
 
  	}
   }
-	
+
+  get focusElement() {
+    return this.$.element;
+  }
+  
+  _getWeekOfMonth(date) {
+	  return Math.floor(this.$.element._days.findIndex(d=>
+	    d && 
+	  	d.getFullYear() === date.getFullYear() &&
+	  	d.getMonth() === date.getMonth() &&
+	  	d.getDate() === date.getDate())/7);
+  }
+  
+  _getDaysArray() {
+	  return [...Array(6).keys()].map(i=>i*7).map(i=>this.$.element._days.slice(i,i+7));
+  }
+  
+  _eventKey(e) {
+    var keys = ['down', 'up', 'left', 'right'];
+
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i];
+      if (IronA11yKeysBehavior.keyboardEventMatchesKeys(e, k)) {
+        return k;
+      }
+    }
+  }
+   
   static get template() {
 		return html`
 		<vaadin-month-calendar id="element"

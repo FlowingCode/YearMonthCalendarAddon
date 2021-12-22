@@ -31,7 +31,7 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
       /**
        * Flag stating whether the component is in readonly mode.
        */
-	  readonly: {
+      readonly: {
         type: Boolean,
         reflectToAttribute: true
       },
@@ -82,7 +82,7 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
         value: new Date().getFullYear()
       },
 
-   	  /**
+         /**
        * A `Date` object for the currently selected date.
        */
       selectedDate: {
@@ -113,40 +113,41 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
        type: Array,
        computed: '__getMonths(year)'
       }
-	}
+    }
   }
-	
+    
   static get template() {
-	return html`				
-		<style>
-			
-		</style>
-		<vaadin-form-layout id="formLayout">
-			<dom-repeat items="[[__months]]" as="month">
-			    <template>
-			      <fc-month-calendar part="month"
-	              readonly="[[readonly]]"
-	              i18n="[[i18n]]"
-	              month="[[month]]"
-	              selected-date="{{selectedDate}}"
-	              focused-date="[[focusedDate]]"
-	              ignore-taps="[[ignoreTaps]]"
-	              show-week-numbers="[[showWeekNumbers]]"
-	              min-date="[[minDate]]"
-	              max-date="[[maxDate]]"
-	              focused$="[[_focused]]"
-	              theme$="[[theme]]"
-	            >
-	            </fc-month-calendar>
-			    </template>
-			</dom-repeat>	
-		</vaadin-form-layout>
-	`;
+    return html`                
+        <style>
+            
+        </style>
+        <vaadin-form-layout id="formLayout">
+            <dom-repeat items="[[__months]]" as="month">
+                <template>
+                  <fc-month-calendar part="month"
+                  readonly="[[readonly]]"
+                  i18n="[[i18n]]"
+                  month="[[month]]"
+                  selected-date="{{selectedDate}}"
+                  focused-date="[[focusedDate]]"
+                  ignore-taps="[[ignoreTaps]]"
+                  show-week-numbers="[[showWeekNumbers]]"
+                  min-date="[[minDate]]"
+                  max-date="[[maxDate]]"
+                  focused$="[[_focused]]"
+                  theme$="[[theme]]"
+                  on-keydown="_onKeyDown"
+                >
+                </fc-month-calendar>
+                </template>
+            </dom-repeat>    
+        </vaadin-form-layout>
+    `;
   }
 
   ready() {
-  	super.ready();
-  	this.$.formLayout.responsiveSteps = [
+      super.ready();
+      this.$.formLayout.responsiveSteps = [
       {minWidth: 0, columns: 1},
       {minWidth: '22em', columns: 2},
       {minWidth: '33em', columns: 3},
@@ -157,14 +158,145 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
   }
   
   __getMonths() {
-	  return Array.apply(0,Array(12)).map((e,month)=>new Date(this.year,month,1));
+      return Array.apply(0,Array(12)).map((e,month)=>new Date(this.year,month,1));
   }
-		
+        
   _setStyleForDay(dayOfMonth,monthOfYear,className) {
-	var calendar = this.shadowRoot.querySelectorAll("[part='month']")[monthOfYear-1];
-	calendar._setStyleForDay(dayOfMonth, className);
+    var calendar = this.shadowRoot.querySelectorAll("[part='month']")[monthOfYear-1];
+    calendar._setStyleForDay(dayOfMonth, className);
   }
-
+  
+  _onKeyDown(ev) {  
+  
+    const isMonthCalendar = elem => elem.tagName.toLowerCase()=="fc-month-calendar";
+    
+    if (ev.path.length<3 || !isMonthCalendar(ev.path[2])) {    
+        return;
+    }
+    
+    const monthCalendar = ev.path[2];    
+    const key = monthCalendar._eventKey(ev);
+    if (!key) return;
+    
+    const adjustDate = (date, delta) => {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate()+delta);
+    };
+  
+  
+    const monthCalendars = () => Array.from(this.$.formLayout.children).filter(isMonthCalendar);
+    
+    const getNumPerRow = () => {
+      //https://stackoverflow.com/a/49090306/1297272
+      //https://stackoverflow.com/users/438581/brett-dewoody
+      const children   = monthCalendars();
+      const baseOffset = children[0].offsetTop;
+      const breakIndex = children.findIndex(item => item.offsetTop > baseOffset);
+      return (breakIndex === -1 ? grid.length : breakIndex);       
+    };
+    
+    const adjustDateByHorizontalOffset = (offset) => {    
+      //find the month in the offset calendar on left/right
+      const numPerRow = getNumPerRow(); 
+      let   month = this.selectedDate.getMonth();
+      const row   = Math.floor(month/numPerRow);
+      const col   = month%numPerRow + offset;
+      month = col+row*numPerRow;
+            
+      let d = this.selectedDate;      
+      if (col>=0 && col<numPerRow) {
+        let weekOfMonth = monthCalendars()[d.getMonth()]._getWeekOfMonth(d);
+        const days = monthCalendars()[month]._getDaysArray();
+                                
+        if (offset>0) {
+           //select the first day in the same week of month
+           return days[weekOfMonth].find(day=>!!day) || d;
+        } else {
+           //select the last day in the same week of month
+           return [... days[weekOfMonth]].reverse().find(day=>!!day) || d;           
+        }
+      }      
+      return d;
+    }
+        
+    const adjustDateByVerticalOffset = (offset) => {
+      //find the month in the offset calendar above/below
+      const numPerRow = getNumPerRow(); 
+      let   month = this.selectedDate.getMonth();
+      const row   = Math.floor(month/numPerRow) + offset;
+      const col   = month%numPerRow;
+      month = col+row*numPerRow;
+            
+      let d = this.selectedDate;
+      if (month>=0 && month<12) {
+        let dayOfWeek = d.getDay();
+        if (offset>0) {
+          //select the first day in month with the same date of week
+          d = new Date(d.getFullYear(), month, 1);
+          while (d.getDay()!=dayOfWeek) d = adjustDate(d, +1);
+        } else {
+          //select the last day in month with the same date of week
+          d = new Date(d.getFullYear(), month+1, 0);
+          while (d.getDay()!=dayOfWeek) d = adjustDate(d, -1);
+        }
+      } 
+      return d;
+    };
+    
+    if (ev.ctrlKey) {
+      let dayOfWeek = this.selectedDate.getDay();
+      let month = this.selectedDate.getMonth();
+        
+      switch (key) {            
+        case 'left': {
+            let firstDayOfWeek = this.i18n.firstDayOfWeek;
+            let dayOfMonth = this.selectedDate.getDate();
+            if (dayOfWeek==firstDayOfWeek || dayOfMonth==1) {                
+                this.selectedDate = adjustDateByHorizontalOffset(-1);
+                return;
+            }
+            break;
+        }
+        case 'right': {
+            let lastDayOfWeek  = (this.i18n.firstDayOfWeek-1+7)%7;
+            let dayOfMonth = this.selectedDate.getDate();
+            let lastDayOfMonth = new Date(this.year, this.selectedDate.getMonth()+1, 0).getDate();
+            if (dayOfWeek==lastDayOfWeek || dayOfMonth==lastDayOfMonth) {                                    
+                this.selectedDate = adjustDateByHorizontalOffset(+1);
+                return;
+            }
+            break;
+        }
+        case 'up': {                
+            if (month != adjustDate(this.selectedDate, -7).getMonth()) {
+                this.selectedDate = adjustDateByVerticalOffset(-1);                    
+                return;
+            }
+            break;
+        }
+        case 'down': {
+            if (month != adjustDate(this.selectedDate, +7).getMonth()) {
+               this.selectedDate = adjustDateByVerticalOffset(+1);                    
+               return;
+           }
+           break;
+        }
+      }
+    }
+    
+    let delta=0;
+    switch (key) {
+      case 'left':  delta=-1; break;
+      case 'right': delta=+1; break;
+      case 'up':    delta=-7; break;
+      case 'down':  delta=+7; break;
+    }    
+    
+    let newDate = adjustDate(this.selectedDate, delta);
+    if (newDate.getFullYear()==this.year) { 
+      ev.stopPropagation();
+      this.selectedDate = newDate;
+    }
+  }
 }
 
 customElements.define(FcYearCalendarElement.is, FcYearCalendarElement);
