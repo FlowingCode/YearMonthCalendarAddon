@@ -219,6 +219,9 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<requireHomeNodeExec>true</requireHomeNodeExec>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
