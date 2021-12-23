@@ -127,10 +127,12 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
   }
 
   connectedCallback() {
-    super.connectedCallback();        
+    super.connectedCallback();
+    this.addEventListener("selected-date-changed",this._onSelectedDateChanged);    
   }
     
   disconnectedCallback() {
+	this.removeEventListener("selected-date-changed",this._onSelectedDateChanged);
     super.disconnectedCallback();
   }
 
@@ -159,6 +161,13 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
     }
   }
   
+  _onSelectedDateChanged(ev) {    
+    if (ev.detail.value) {
+      this.dispatchEvent(new CustomEvent("date-selected", {
+        detail: {  value: ev.detail.value.toISOString().substring(0,10) }
+      }));
+    }
+  }
         
 }
 

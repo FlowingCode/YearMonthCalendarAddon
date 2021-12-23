@@ -1,10 +1,13 @@
 package com.flowingcode.addons.ycalendar;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.function.ValueProvider;
+import com.vaadin.flow.shared.Registration;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
@@ -93,6 +96,19 @@ public class MonthCalendar extends Component implements HasSize {
 
   private void setStyleForDay(int dayOfMonth, String className) {
     getElement().executeJs("setTimeout(()=>{this._setStyleForDay($0,$1);})", dayOfMonth, className);
+  }
+
+
+  /**
+   * Adds a date selection listener. The listener is called when the user selects a given date.
+   *
+   * @param listener the value change listener, not null
+   * @return a registration for the listener
+   */
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public Registration addDateSelectedListener(
+      ComponentEventListener<DateSelectedEvent<? super MonthCalendar>> listener) {
+    return ComponentUtil.addListener(this, DateSelectedEvent.class, (ComponentEventListener) listener);
   }
 
 }
