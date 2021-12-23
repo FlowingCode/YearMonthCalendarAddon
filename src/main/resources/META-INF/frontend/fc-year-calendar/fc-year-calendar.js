@@ -205,7 +205,7 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
       let d = this.selectedDate;      
       if (col>=0 && col<numPerRow) {
         let weekOfMonth = monthCalendars()[d.getMonth()]._getWeekOfMonth(d);
-        const days = monthCalendars()[month]._getDaysArray();
+        const days = monthCalendars()[month]._getDaysMatrix();
                                 
         if (offset>0) {
            //select the first day in the same week of month

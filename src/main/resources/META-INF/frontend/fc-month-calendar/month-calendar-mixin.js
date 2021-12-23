@@ -89,7 +89,7 @@ export class MonthCalendarMixin extends ShadowFocusMixin(ThemableMixin(PolymerEl
 	  	d.getDate() === date.getDate())/7);
   }
   
-  _getDaysArray() {
+  _getDaysMatrix() {
 	  return [...Array(6).keys()].map(i=>i*7).map(i=>this.$.element._days.slice(i,i+7));
   }
   
