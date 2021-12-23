@@ -22,20 +22,19 @@ package com.flowingcode.addons.ycalendar;
 import com.flowingcode.vaadin.addons.DemoLayout;
 import com.flowingcode.vaadin.addons.GithubLink;
 import com.flowingcode.vaadin.addons.demo.TabbedDemo;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.router.Route;
 
 @SuppressWarnings("serial")
 @Route(value = "year-month-calendar", layout = DemoLayout.class)
 @GithubLink("https://github.com/FlowingCode/YearMonthCalendarAddon")
+@CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
 public class YearMonthCalendarDemoView extends TabbedDemo {
 
-  private static final String TEMPLATE_ADDON_SOURCE =
-      "https://github.com/FlowingCode/YearMonthCalendarAddon/blob/master/src/test/java/com/flowingcode/vaadin/addons/ycalendar/YearMonthCalendarDemoView.java";
-
   public YearMonthCalendarDemoView() {
-    addDemo(new YearDemo(), "Year", TEMPLATE_ADDON_SOURCE);
-    addDemo(new YearReadonlyDemo(), "Year, readonly");
-    addDemo(new MonthDemo(), "Month");
+    addDemo(new YearDemo());
+    addDemo(new YearReadonlyDemo());
+    addDemo(new MonthDemo());
     setSizeFull();
   }
 

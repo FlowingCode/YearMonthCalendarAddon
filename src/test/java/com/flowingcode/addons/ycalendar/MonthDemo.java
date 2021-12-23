@@ -19,10 +19,16 @@
  */
 package com.flowingcode.addons.ycalendar;
 
+import com.flowingcode.vaadin.addons.demo.DemoSource;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.router.PageTitle;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
 
+@DemoSource
+@PageTitle("Month")
+@CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
 public class MonthDemo extends Div {
 
   public MonthDemo() {
