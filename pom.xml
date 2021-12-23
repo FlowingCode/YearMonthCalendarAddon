@@ -85,6 +85,14 @@
             <id>flowing-releases</id>
             <url>https://maven.flowingcode.com/releases</url>
         </repository>
+        <!-- Flowing Code Snapshot Repository -->
+        <repository>
+            <id>flowing-snapshots</id>
+            <url>https://maven.flowingcode.com/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 	</repositories>
 
     <pluginRepositories>
