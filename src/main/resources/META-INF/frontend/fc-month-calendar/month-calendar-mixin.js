@@ -118,10 +118,11 @@ export class MonthCalendarMixin extends ShadowFocusMixin(ThemableMixin(PolymerEl
               focused$="[[_focused]]"
               part="month"
               theme$="[[theme]]"
+              on-key-down="_onKeyDown"
             >
             </vaadin-month-calendar>
 	`;}
-
+  
   
 }
 

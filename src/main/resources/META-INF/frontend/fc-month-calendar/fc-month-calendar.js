@@ -124,7 +124,6 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
     }`;
         
     this.$.element.shadowRoot.querySelector("style").innerHTML+=styles;
-    this.$.element.addEventListener('keydown', this._onKeyDown.bind(this)); 
   }
 
   connectedCallback() {
@@ -159,8 +158,8 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
       }
     }
   }
-      
   
+        
 }
 
 customElements.define(FcMonthCalendarElement.is, FcMonthCalendarElement);
