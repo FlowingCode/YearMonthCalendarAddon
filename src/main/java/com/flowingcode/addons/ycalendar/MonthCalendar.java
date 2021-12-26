@@ -1,6 +1,5 @@
 package com.flowingcode.addons.ycalendar;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.HasSize;
@@ -18,7 +17,7 @@ import java.util.stream.IntStream;
 @JsModule("./fc-month-calendar/month-calendar-mixin.js")
 @JsModule("./fc-month-calendar/fc-month-calendar.js")
 @SuppressWarnings("serial")
-public class MonthCalendar extends Component implements HasSize {
+public class MonthCalendar extends AbstractCalendarComponent implements HasSize {
 
   private YearMonth yearMonth;
 
@@ -63,6 +62,7 @@ public class MonthCalendar extends Component implements HasSize {
   /**
    * Refresh the styles for all the dates in the displayed year-and-month.
    */
+  @Override
   public void refreshAll() {
     IntStream.rangeClosed(1, yearMonth.lengthOfMonth()).forEach(dayOfMonth -> {
       String className;
@@ -109,6 +109,6 @@ public class MonthCalendar extends Component implements HasSize {
   public Registration addDateSelectedListener(
       ComponentEventListener<DateSelectedEvent<? super MonthCalendar>> listener) {
     return ComponentUtil.addListener(this, DateSelectedEvent.class, (ComponentEventListener) listener);
-  }
+}
 
 }
