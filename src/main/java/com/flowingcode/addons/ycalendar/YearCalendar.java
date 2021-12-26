@@ -1,12 +1,9 @@
 package com.flowingcode.addons.ycalendar;
 
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.function.ValueProvider;
-import com.vaadin.flow.shared.Registration;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.stream.IntStream;
@@ -14,7 +11,7 @@ import java.util.stream.IntStream;
 @Tag("fc-year-calendar")
 @JsModule("./fc-year-calendar/fc-year-calendar.js")
 @SuppressWarnings("serial")
-public class YearCalendar extends AbstractCalendarComponent implements HasSize {
+public class YearCalendar extends AbstractCalendarComponent<YearCalendar> implements HasSize {
 
   private ValueProvider<LocalDate, String> classNameGenerator;
 
@@ -64,19 +61,6 @@ public class YearCalendar extends AbstractCalendarComponent implements HasSize {
       getElement().executeJs("setTimeout(()=>{this._setStyleForDay($0,$1,$2);})",
           date.getDayOfMonth(), date.getMonthValue(), className);
     }
-  }
-
-
-  /**
-   * Adds a date click listener. The listener is called when the user selects a given date.
-   *
-   * @param listener the value change listener, not null
-   * @return a registration for the listener
-   */
-  @SuppressWarnings({"unchecked", "rawtypes"})
-  public Registration addDateSelectedListener(
-      ComponentEventListener<DateSelectedEvent<? super MonthCalendar>> listener) {
-    return ComponentUtil.addListener(this, DateSelectedEvent.class, (ComponentEventListener) listener);
   }
 
 }
