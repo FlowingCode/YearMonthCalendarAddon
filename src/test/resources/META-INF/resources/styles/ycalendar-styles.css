@@ -1,0 +1,8 @@
+#content vaadin-horizontal-layout {
+	gap: 0px;
+	flex-wrap: wrap
+}
+
+#content vaadin-horizontal-layout > * {
+	padding-left: 1ex;
+}

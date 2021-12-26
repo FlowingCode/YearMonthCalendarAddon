@@ -22,7 +22,8 @@ package com.flowingcode.addons.ycalendar;
 import com.flowingcode.vaadin.addons.demo.DemoSource;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
@@ -46,10 +47,13 @@ public class MonthDemo extends Div {
       return null;
     });
 
+    Span selectedDate = new Span();
     calendar.addDateSelectedListener(ev -> {
-      Notification.show("Selected: " + ev.getDate());
+      selectedDate.setText("Selected date: " + ev.getDate());
     });
-    add(calendar);
+
+    Span instructions = new Span("Use arrow keys to move.");
+    add(new HorizontalLayout(instructions, selectedDate), calendar);
   }
 
 }
