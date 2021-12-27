@@ -1,7 +1,5 @@
-<!--
-[![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/year-month-calendar-addon)
-[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/app-layout-addon.svg)](https://vaadin.com/directory/component/year-month-calendar-addon)
--->
+[![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/year-month-calendar-add-on)
+[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/year-month-calendar-add-on.svg)](https://vaadin.com/directory/component/year-month-calendar-add-on)
 [![Build Status](https://jenkins.flowingcode.com/job/YearMonthCalendar-addon/badge/icon)](https://jenkins.flowingcode.com/job/YearMonthCalendar-addon)
 
 # Year/Month Calendar Add-on
@@ -18,11 +16,9 @@ Full year / month calendar for Vaadin 22+
 
 [Online demo here](http://addonsv22-staging.flowingcode.com/year-month-calendar)
 
-<!--
 ## Download release
 
-[Available in Vaadin Directory](https://vaadin.com/directory/component/year-month-calendar-addon)
--->
+[Available in Vaadin Directory](https://vaadin.com/directory/component/year-month-calendar-add-on)
 
 ## Building and running demo
 
