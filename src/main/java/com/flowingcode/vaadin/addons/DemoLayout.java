@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Template Add-on
+ * Year Month Calendar Add-on
  * %%
  * Copyright (C) 2021 Flowing Code
  * %%
