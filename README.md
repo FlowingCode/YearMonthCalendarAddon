@@ -1,22 +1,28 @@
-[![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/template-addon)
-[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/app-layout-addon.svg)](https://vaadin.com/directory/component/template-addon)
-[![Build Status](https://jenkins.flowingcode.com/job/template-addon/badge/icon)](https://jenkins.flowingcode.com/job/template-addon)
+<!--
+[![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/year-month-calendar-addon)
+[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/app-layout-addon.svg)](https://vaadin.com/directory/component/year-month-calendar-addon)
+-->
+[![Build Status](https://jenkins.flowingcode.com/job/YearMonthCalendar-addon/badge/icon)](https://jenkins.flowingcode.com/job/YearMonthCalendar-addon)
 
-# Template Add-on
+# Year/Month Calendar Add-on
 
-This is a template project for building new Vaadin 14 addons
+Full year / month calendar for Vaadin 22+
 
 ## Features
 
-* List the features of your addon in here
+* Java API for applying CSS class names to specific dates
+* Selection listener
+* Responsive layout
 
 ## Online demo
 
-[Online demo here](http://addonsv14.flowingcode.com/template)
+[Online demo here](http://addonsv22-staging.flowingcode.com/year-month-calendar)
 
+<!--
 ## Download release
 
-[Available in Vaadin Directory](https://vaadin.com/directory/component/template-addon)
+[Available in Vaadin Directory](https://vaadin.com/directory/component/year-month-calendar-addon)
+-->
 
 ## Building and running demo
 
@@ -27,7 +33,7 @@ To see the demo, navigate to http://localhost:8080/
 
 ## Release notes
 
-See [here](https://github.com/FlowingCode/TemplateAddon/releases)
+See [here](https://github.com/FlowingCode/YearMonthCalendarAddon/releases)
 
 ## Issue tracking
 
@@ -48,10 +54,24 @@ Contributions are welcome, but there are no guarantees that they are accepted as
 
 Add-on is distributed under Apache License 2.0. For license terms, see LICENSE.txt.
 
-TEMPLATE_ADDON is written by Flowing Code S.A.
+YearMonthCalendar Addon is written by Flowing Code S.A.
 
 # Developer Guide
 
 ## Getting started
 
-Add your code samples in this section
+Instantiate the component and configure a `ClassNameGenerator`
+
+```
+YearCalendar calendar = new YearCalendar();
+
+calendar.setClassNameGenerator(date -> {
+   if (TestUtils.isPublicHoliday(date)) {
+     return "holiday";
+   }
+   if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+     return "weekend";
+   }
+   return null;
+});
+```
