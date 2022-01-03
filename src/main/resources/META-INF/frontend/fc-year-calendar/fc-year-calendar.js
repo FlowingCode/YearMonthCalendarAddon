@@ -180,12 +180,13 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
   _onKeyDown(ev) {  
   
     const isMonthCalendar = elem => elem.tagName.toLowerCase()=="fc-month-calendar";
+    let path = ev.path || (ev.composedPath && ev.composedPath());
     
-    if (ev.path.length<3 || !isMonthCalendar(ev.path[2])) {    
+    if (!path || path.length<3 || !isMonthCalendar(path[2])) {    
         return;
     }
     
-    const monthCalendar = ev.path[2];    
+    const monthCalendar = path[2];    
     const key = monthCalendar._eventKey(ev);
     if (!key) return;
     
