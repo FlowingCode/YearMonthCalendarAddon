@@ -99,7 +99,7 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
     `;}
   
   _setStyleForDay(i,className) { 
-    let e = this.$.element.shadowRoot.querySelectorAll("[part='date'][role='button']")[i-1];
+    let e = this.$.element.shadowRoot.querySelectorAll("[part='date']:not(:empty)")[i-1];
     if (className) {
         e.className=className;
     } else {
