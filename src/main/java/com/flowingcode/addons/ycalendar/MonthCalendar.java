@@ -21,7 +21,9 @@ package com.flowingcode.addons.ycalendar;
 
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.function.ValueProvider;
 import java.time.LocalDate;
 import java.time.Month;
@@ -32,6 +34,7 @@ import java.util.stream.IntStream;
 @Tag("fc-month-calendar")
 @JsModule("./fc-month-calendar/month-calendar-mixin.js")
 @JsModule("./fc-month-calendar/fc-month-calendar.js")
+@Uses(DatePicker.class)
 @SuppressWarnings("serial")
 public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> implements HasSize {
 
