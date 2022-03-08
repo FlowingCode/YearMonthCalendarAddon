@@ -22,6 +22,7 @@ package com.flowingcode.addons.ycalendar;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.function.ValueProvider;
 import java.time.LocalDate;
 import java.time.Year;
@@ -30,6 +31,7 @@ import java.util.stream.IntStream;
 @Tag("fc-year-calendar")
 @JsModule("./fc-year-calendar/fc-year-calendar.js")
 @SuppressWarnings("serial")
+@Uses(MonthCalendar.class)
 public class YearCalendar extends AbstractCalendarComponent<YearCalendar> implements HasSize {
 
   private ValueProvider<LocalDate, String> classNameGenerator;
