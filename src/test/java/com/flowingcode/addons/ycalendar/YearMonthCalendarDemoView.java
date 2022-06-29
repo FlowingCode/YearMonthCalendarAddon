@@ -32,9 +32,9 @@ import com.vaadin.flow.router.Route;
 public class YearMonthCalendarDemoView extends TabbedDemo {
 
   public YearMonthCalendarDemoView() {
-    addDemo(new YearDemo());
-    addDemo(new YearReadonlyDemo());
-    addDemo(new MonthDemo());
+    addDemo(YearDemo.class);
+    addDemo(YearReadonlyDemo.class);
+    addDemo(MonthDemo.class);
     setSizeFull();
   }
 
