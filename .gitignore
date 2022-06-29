@@ -10,9 +10,9 @@ package.json
 webpack.config.js
 /error-screenshots
 drivers
-/.npmrc
+tsconfig.json
+.idea
+types.d.ts
+/frontend/generated/index.ts
 /frontend/generated/vaadin.ts
-/pnpm-lock.yaml
-/pnpmfile.js
-/tsconfig.json
-/types.d.ts
+/frontend/index.html
