@@ -25,11 +25,13 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 import java.time.DayOfWeek;
 
 @DemoSource
 @PageTitle("Year")
 @CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
+@Route(value = "year-month-calendar/year", layout = YearMonthCalendarDemoView.class)
 public class YearDemo extends Div {
 
   public YearDemo() {

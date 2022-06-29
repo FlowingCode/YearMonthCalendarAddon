@@ -23,11 +23,13 @@ import com.flowingcode.vaadin.addons.demo.DemoSource;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 import java.time.DayOfWeek;
 
 @CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
 @PageTitle("Read only")
 @DemoSource
+@Route(value = "year-month-calendar/year-readonly", layout = YearMonthCalendarDemoView.class)
 public class YearReadonlyDemo extends Div {
 
   public YearReadonlyDemo() {
