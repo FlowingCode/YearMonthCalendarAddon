@@ -19,25 +19,26 @@
  */
 package com.flowingcode.addons.ycalendar;
 
-import com.flowingcode.vaadin.addons.DemoLayout;
-import com.flowingcode.vaadin.addons.GithubLink;
-import com.flowingcode.vaadin.addons.demo.TabbedDemo;
-import com.vaadin.flow.component.dependency.StyleSheet;
+import com.flowingcode.vaadin.addons.demo.DemoSource;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import java.time.DayOfWeek;
 
-@SuppressWarnings("serial")
-@Route(value = "year-month-calendar", layout = DemoLayout.class)
-@GithubLink("https://github.com/FlowingCode/YearMonthCalendarAddon")
-@StyleSheet("context://styles/ycalendar-styles.css")
-public class YearMonthCalendarDemoView extends TabbedDemo {
+@DemoSource
+@PageTitle("Year-Month Field")
+@Route(value = "year-month-calendar/year-month-field", layout = YearMonthCalendarDemoView.class)
+public class YearMonthFieldDemo extends Div {
 
-  public YearMonthCalendarDemoView() {
-    addDemo(YearDemo.class);
-    addDemo(YearReadonlyDemo.class);
-    addDemo(MonthDemo.class);
-    addDemo(InlineDatePickerDemo.class);
-    addDemo(YearMonthFieldDemo.class);
-    setSizeFull();
+  public YearMonthFieldDemo() {
+
+    YearMonthField field = new YearMonthField();
+
+    add(field);
   }
 
 }
+
