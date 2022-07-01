@@ -121,7 +121,12 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
         [part='date'][selected]::before {
           background-color: unset;  
           border: 1px solid var(--lumo-primary-color);
-    }`;
+        }
+
+        [part~=month-header] {
+          display: var(--__month-calendar-header-display, block);
+        }
+    `;
         
     this.$.element.shadowRoot.querySelector("style").innerHTML+=styles;
   }
