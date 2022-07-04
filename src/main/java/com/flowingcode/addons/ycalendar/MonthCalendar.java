@@ -50,9 +50,7 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
 
   /** Creates a new instance of {@code MonthCalendar} for the given year-and-month. */
   public MonthCalendar(YearMonth yearMonth) {
-    this.yearMonth = Objects.requireNonNull(yearMonth);
-    String script = "this.month=new Date($0,$1-1,1);";
-    getElement().executeJs(script, yearMonth.getYear(), yearMonth.getMonthValue());
+    setYearMonth(yearMonth);
   }
 
   public void setReadOnly(boolean readOnly) {
@@ -69,6 +67,15 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
     return yearMonth.getMonth();
   }
 
+  /** Sets the year-and-month that is displayed in this calendar. */
+  public void setYearMonth(YearMonth yearMonth) {
+    this.yearMonth = Objects.requireNonNull(yearMonth);
+    this.yearMonth = Objects.requireNonNull(yearMonth);
+    String script = "this.month=new Date($0,$1-1,1);";
+    getElement().executeJs(script, yearMonth.getYear(), yearMonth.getMonthValue());
+    refreshAll();
+  }
+  
   /**
    * Sets the function that is used for generating CSS class names for rows in this calendar.
    * Returning {@code null} from the generator results in no custom class name being set. Multiple
