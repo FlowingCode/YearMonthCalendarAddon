@@ -20,6 +20,7 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 
 import {MonthCalendarMixin} from './month-calendar-mixin.js'
+import {formatDate} from '../fc-year-calendar/fc-calendar-utils.js';
 
 export class FcMonthCalendarElement extends MonthCalendarMixin {
   static get is() { return 'fc-month-calendar'; }
@@ -169,7 +170,7 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
   _onSelectedDateChanged(ev) {    
     if (ev.detail.value) {
       this.dispatchEvent(new CustomEvent("date-selected", {
-        detail: {  value: ev.detail.value.toISOString().substring(0,10) }
+        detail: {  value: formatDate(ev.detail.value).substring(0,10) }
       }));
     }
   }
