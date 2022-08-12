@@ -23,6 +23,8 @@ import {} from '@polymer/polymer/lib/elements/dom-repeat.js';
 import {} from '@vaadin/vaadin-form-layout/src/vaadin-form-layout.js';
 import {} from '../fc-month-calendar/fc-month-calendar.js';
 
+import {formatDate} from '../fc-year-calendar/fc-calendar-utils.js';
+
 export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
   static get is() { return 'fc-year-calendar'; }
 
@@ -313,7 +315,7 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
   _onSelectedDateChanged(ev) {    
     if (ev.detail.value) {
       this.dispatchEvent(new CustomEvent("date-selected", {
-        detail: {  value: ev.detail.value.toISOString().substring(0,10) }
+        detail: {  value: formatDate(ev.detail.value).substring(0,10) }
       }));
     }
   }
