@@ -56,6 +56,10 @@ export class MonthCalendarMixin extends ShadowFocusMixin(ThemableMixin(PolymerEl
         value: false
       },
 
+      _chronology: {
+        type: Object
+      },
+       
       i18n: {
         type: Object
       },
@@ -123,6 +127,9 @@ export class MonthCalendarMixin extends ShadowFocusMixin(ThemableMixin(PolymerEl
             </vaadin-month-calendar>
 	`;}
   
+	ready() {
+		super.ready();
+	}
   
 }
 

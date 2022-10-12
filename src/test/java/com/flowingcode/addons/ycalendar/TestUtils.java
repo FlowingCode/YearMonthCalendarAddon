@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,8 @@
 package com.flowingcode.addons.ycalendar;
 
 import java.time.LocalDate;
+import java.time.chrono.HijrahDate;
+import java.time.temporal.ChronoField;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -80,6 +82,23 @@ public class TestUtils {
       case DECEMBER:
         return date.getDayOfMonth() == 8
             || date.getDayOfMonth() == 25;
+      default:
+        return false;
+    }
+  }
+
+  public static boolean isHijrahHoliday(LocalDate date) {
+    HijrahDate hdate = HijrahDate.from(date);
+    switch (hdate.get(ChronoField.MONTH_OF_YEAR)) {
+      case 1:
+        // 1st Muharram
+        return hdate.get(ChronoField.DAY_OF_MONTH) == 1;
+      case 10:
+        // 1st Shawwal
+        return hdate.get(ChronoField.DAY_OF_MONTH) == 1;
+      case 12:
+        // 10 Dhul Hijjah
+        return hdate.get(ChronoField.DAY_OF_MONTH) == 10;
       default:
         return false;
     }
