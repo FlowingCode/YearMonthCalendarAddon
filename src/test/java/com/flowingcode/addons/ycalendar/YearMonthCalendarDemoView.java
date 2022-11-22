@@ -23,10 +23,12 @@ import com.flowingcode.vaadin.addons.DemoLayout;
 import com.flowingcode.vaadin.addons.GithubLink;
 import com.flowingcode.vaadin.addons.demo.TabbedDemo;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.Route;
 
 @SuppressWarnings("serial")
-@Route(value = "year-month-calendar", layout = DemoLayout.class)
+@ParentLayout(DemoLayout.class)
+@Route("year-month-calendar")
 @GithubLink("https://github.com/FlowingCode/YearMonthCalendarAddon")
 @StyleSheet("context://styles/ycalendar-styles.css")
 public class YearMonthCalendarDemoView extends TabbedDemo {
