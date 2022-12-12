@@ -24,6 +24,7 @@ import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.function.ValueProvider;
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ import java.util.stream.IntStream;
 @Tag("fc-month-calendar")
 @JsModule("./fc-month-calendar/month-calendar-mixin.js")
 @JsModule("./fc-month-calendar/fc-month-calendar.js")
+@NpmPackage(value = "@polymer/iron-a11y-keys-behavior", version = "3.0.1")
 @Uses(DatePicker.class)
 @SuppressWarnings("serial")
 public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> implements HasSize, HasTheme {
