@@ -20,7 +20,7 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 import {} from '@polymer/polymer/lib/elements/dom-repeat.js';
-import {} from '@vaadin/vaadin-form-layout/src/vaadin-form-layout.js';
+import {} from '@vaadin/form-layout/src/vaadin-form-layout.js';
 import {} from '../fc-month-calendar/fc-month-calendar.js';
 
 import {formatDate} from '../fc-year-calendar/fc-calendar-utils.js';
