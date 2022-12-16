@@ -20,7 +20,7 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 
 import {IronA11yKeysBehavior} from '@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
-import {ShadowFocusMixin} from '@vaadin/field-base/src/shadow-focus-mixin.js';
+import {ShadowFocusMixin} from './shadow-focus-mixin.js';
 import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
 
