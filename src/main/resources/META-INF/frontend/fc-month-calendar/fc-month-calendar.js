@@ -143,6 +143,7 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
   }
 
   _onKeyDown(ev) {
+    super._onKeyDown(ev);
     if (ev.model) return;
     if (ev.ctrlKey) return;
     let delta = 0;
