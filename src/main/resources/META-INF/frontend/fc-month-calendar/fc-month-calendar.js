@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {html} from '@polymer/polymer/polymer-element.js';
 
 import {MonthCalendarMixin} from './month-calendar-mixin.js'
 import {formatDate} from '../fc-year-calendar/fc-calendar-utils.js';
