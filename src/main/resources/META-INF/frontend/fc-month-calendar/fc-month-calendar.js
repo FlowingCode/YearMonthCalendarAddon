@@ -19,7 +19,7 @@
  */
 import {html} from '@polymer/polymer/polymer-element.js';
 
-import {MonthCalendarMixin} from './month-calendar-mixin.js'
+import {MonthCalendarMixin} from './month-calendar-mixin.js';
 import {formatDate} from '../fc-year-calendar/fc-calendar-utils.js';
 
 export class FcMonthCalendarElement extends MonthCalendarMixin {
