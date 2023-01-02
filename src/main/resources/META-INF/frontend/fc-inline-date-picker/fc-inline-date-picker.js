@@ -33,6 +33,11 @@ export class InlineDatePicker extends LitElement {
     };
   }
 
+  constructor() {
+    super();
+    this.displayDate = new Date();
+  }
+  
   willUpdate(changedProperties) {
     if (changedProperties.has('value')) {
       this.date = this.value ? new Date(this.value) : undefined;;
