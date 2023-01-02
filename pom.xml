@@ -196,6 +196,9 @@
 				<configuration>
 					<licenseName>apache_v2</licenseName>
 					<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+					<excludes>
+						<exclude>**/shadow-focus-mixin.js</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
             <plugin>
