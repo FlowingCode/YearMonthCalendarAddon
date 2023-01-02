@@ -29,6 +29,7 @@ export class InlineDatePicker extends LitElement {
       date:  {type: Date},      
       displayDate:  {type: Date},
       i18n: {type: Object},
+      showWeekNumbers: {type: Boolean}
     };
   }
 
@@ -72,7 +73,7 @@ export class InlineDatePicker extends LitElement {
   render() {
     return html`
       <fc-year-month-field .date="${this.displayDate}" @value-changed="${this.__onDisplayMonthChange}"></fc-year-month-field>
-      <fc-month-calendar   .month="${this.displayDate}" @date-selected="${this.__onDateSelected}"></fc-year-month-field>
+      <fc-month-calendar   .month="${this.displayDate}" @date-selected="${this.__onDateSelected}" .showWeekNumbers="${this.showWeekNumbers}"></fc-year-month-field>
     `;
   }
 

@@ -44,4 +44,30 @@ public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePick
     setValue(LocalDate.now());
   }
 
+  /**
+   * Set the week number visible in the DatePicker.
+   *
+   * <p>Set true to display ISO-8601 week numbers in the calendar.
+   *
+   * <p>Notice that displaying week numbers is only supported when i18n.firstDayOfWeek is 1
+   * (Monday).
+   *
+   * @param weekNumbersVisible the boolean value to set
+   */
+  public void setWeekNumbersVisible(boolean weekNumbersVisible) {
+    getElement().setProperty("showWeekNumbers", weekNumbersVisible);
+  }
+
+  /**
+   * Get the state of {@code showWeekNumbers} property of the datepicker
+   *
+   * <p>This property is not synchronized automatically from the client side, so the returned value
+   * may not be the same as in client side.
+   *
+   * @return the {@code showWeekNumbers} property from the datepicker
+   */
+  public boolean isWeekNumbersVisible() {
+    return getElement().getProperty("showWeekNumbers", false);
+  }
+
 }
