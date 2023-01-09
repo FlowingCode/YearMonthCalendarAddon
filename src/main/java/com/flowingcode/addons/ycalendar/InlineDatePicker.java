@@ -42,6 +42,7 @@ public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePick
   public InlineDatePicker() {
     super(VALUE_PROPERTY, null, String.class, map(LocalDate::parse), map(LocalDate::toString));
     setValue(LocalDate.now());
+    setWeekNumbersVisible(true);
   }
 
   /**
