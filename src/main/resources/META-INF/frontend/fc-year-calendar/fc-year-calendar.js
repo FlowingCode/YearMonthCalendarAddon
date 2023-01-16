@@ -159,6 +159,14 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
     ];
   }
   
+  afterServerUpdate() {
+	  Array.from(Array(12).keys()).forEach(month => {
+		var calendar = this.shadowRoot.querySelectorAll("[part='month']")[month];
+		if(calendar) {
+			calendar._clearEmptyDaysStyle();
+		}
+	  });
+  }
   
   connectedCallback() {
     super.connectedCallback();

@@ -24,6 +24,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import java.time.DayOfWeek;
@@ -35,9 +36,7 @@ import java.time.DayOfWeek;
 public class YearDemo extends Div {
 
   public YearDemo() {
-
     YearCalendar calendar = new YearCalendar();
-
     calendar.setClassNameGenerator(date -> {
       if (TestUtils.isPublicHoliday(date)) {
         return "holiday";
@@ -54,7 +53,13 @@ public class YearDemo extends Div {
     });
 
     Span instructions = new Span("Use arrow keys or Ctrl+arrow keys to move.");
-    add(new HorizontalLayout(instructions, selectedDate), calendar);
+
+    IntegerField yearField = new IntegerField();
+    yearField.setHasControls(true);
+    yearField.setValue(calendar.getYear());
+    yearField.addValueChangeListener(e -> calendar.setYear(e.getValue()));
+
+    add(new HorizontalLayout(instructions, selectedDate), yearField, calendar);
   }
 
 }
