@@ -19,12 +19,15 @@
  */
 package com.flowingcode.addons.ycalendar;
 
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.function.ValueProvider;
+import com.vaadin.flow.shared.Registration;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.stream.IntStream;
@@ -89,5 +92,18 @@ public class YearCalendar extends AbstractCalendarComponent<YearCalendar> implem
     }
   }
 
+  /**
+   * Adds a year value change listener. The listener is called when the year value changes.
+   *
+   * @param listener the value change listener, not null
+   * @return a registration for the listener
+   */
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public Registration addYearChangedListener(
+      ComponentEventListener<YearChangedEvent<YearCalendar>> listener) {
+    return ComponentUtil.addListener(this, YearChangedEvent.class,
+        (ComponentEventListener) listener);
+  }
+  
 }
 

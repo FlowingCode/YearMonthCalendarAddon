@@ -23,6 +23,7 @@ import com.flowingcode.vaadin.addons.demo.DemoSource;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.router.PageTitle;
@@ -46,6 +47,8 @@ public class YearDemo extends Div {
       }
       return null;
     });
+
+    calendar.addYearChangedListener(e -> Notification.show("Year " + e.getYear() + " selected"));
 
     Span selectedDate = new Span();
     calendar.addDateSelectedListener(ev -> {
