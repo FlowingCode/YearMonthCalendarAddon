@@ -81,7 +81,8 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
        */
       year: {
         type: Number,
-        value: new Date().getFullYear()
+        value: new Date().getFullYear(),
+        notify: true
       },
 
       /**
@@ -170,11 +171,13 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
   
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener("selected-date-changed",this._onSelectedDateChanged);    
+    this.addEventListener("selected-date-changed",this._onSelectedDateChanged);
+    this.addEventListener("year-changed",this._onYearChanged);
   }
     
   disconnectedCallback() {
 	this.removeEventListener("selected-date-changed",this._onSelectedDateChanged);
+	this.removeEventListener("year-changed",this._onYearChanged);
     super.disconnectedCallback();
   }
   
@@ -324,6 +327,14 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
     if (ev.detail.value) {
       this.dispatchEvent(new CustomEvent("date-selected", {
         detail: {  value: formatDate(ev.detail.value).substring(0,10) }
+      }));
+    }
+  }
+  
+  _onYearChanged(ev) {    
+    if (ev.detail.value) {
+      this.dispatchEvent(new CustomEvent("year-changed", {
+        detail: { value: ev.detail.value }
       }));
     }
   }
