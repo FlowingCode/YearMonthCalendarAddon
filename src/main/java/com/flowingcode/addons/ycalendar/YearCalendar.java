@@ -39,7 +39,11 @@ public class YearCalendar extends AbstractCalendarComponent<YearCalendar> implem
 
   /** Updates the displayed year. */
   public void setYear(int year) {
+    int currentYear = getYear();
     getElement().setProperty("year", year);
+    if (currentYear != year) {
+      refreshAll();
+    }
   }
 
   /** Return the displayed year. */

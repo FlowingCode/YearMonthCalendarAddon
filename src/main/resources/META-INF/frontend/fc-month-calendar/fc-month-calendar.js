@@ -107,6 +107,11 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
         e.removeAttribute('class');
     }
   }
+  
+  _clearEmptyDaysStyle() { 
+    let e = this.$.element.shadowRoot.querySelectorAll("[part~='date']:empty");
+    e.forEach(item => item.removeAttribute('class'));
+  }
 
   ready() {
     super.ready();
