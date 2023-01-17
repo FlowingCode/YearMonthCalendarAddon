@@ -28,6 +28,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import java.lang.reflect.Method;
 import java.time.DayOfWeek;
 
 @DemoSource
@@ -35,6 +36,11 @@ import java.time.DayOfWeek;
 @CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
 @Route(value = "year-month-calendar/year", layout = YearMonthCalendarDemoView.class)
 public class YearDemo extends Div {
+
+  private static final Method setHasControlsMethod =
+      TestUtils.getMethod(IntegerField.class, "setHasControls", boolean.class).orElse(null);
+  private static final Method setStepButtonsVisibleMethod =
+      TestUtils.getMethod(IntegerField.class, "setStepButtonsVisible", boolean.class).orElse(null);
 
   public YearDemo() {
     YearCalendar calendar = new YearCalendar();
@@ -58,7 +64,18 @@ public class YearDemo extends Div {
     Span instructions = new Span("Use arrow keys or Ctrl+arrow keys to move.");
 
     IntegerField yearField = new IntegerField();
-    yearField.setHasControls(true);
+    try {
+      if (setHasControlsMethod != null) {
+        // Vaadin 14/22/23
+        setHasControlsMethod.invoke(yearField, true);
+      } else if (setStepButtonsVisibleMethod != null) {
+        // Vaadin 24
+        setStepButtonsVisibleMethod.invoke(yearField, true);
+      }
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+
     yearField.setValue(calendar.getYear());
     yearField.addValueChangeListener(e -> calendar.setYear(e.getValue()));
 

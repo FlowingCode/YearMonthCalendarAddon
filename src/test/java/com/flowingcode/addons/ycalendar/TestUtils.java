@@ -19,10 +19,12 @@
  */
 package com.flowingcode.addons.ycalendar;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class TestUtils {
@@ -92,4 +94,12 @@ public class TestUtils {
     }
   }
 
+  public static Optional<Method> getMethod(Class<?> clazz, String methodName, Class<?>... args) {
+    try {
+      return Optional.ofNullable(clazz.getMethod(methodName, args));
+    } catch (NoSuchMethodException e) {
+      return Optional.empty();
+    }
+  }
+  
 }
