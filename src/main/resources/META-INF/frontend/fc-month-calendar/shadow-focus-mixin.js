@@ -4,7 +4,7 @@
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
  */
 import { KeyboardMixin } from '@vaadin/component-base/src/keyboard-mixin.js';
-import { DelegateFocusMixin } from '@vaadin/field-base/src/delegate-focus-mixin.js';
+import { DelegateFocusMixin } from '@vaadin/component-base/src/delegate-focus-mixin.js';
 
 /**
  * A mixin to forward focus to an element in the shadow DOM.
