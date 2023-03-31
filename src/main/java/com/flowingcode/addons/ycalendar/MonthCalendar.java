@@ -102,6 +102,7 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
       }
       setStyleForDay(dayOfMonth, className);
     });
+    getElement().executeJs("setTimeout(()=>this._clearEmptyDaysStyle())");
   }
 
   /**
