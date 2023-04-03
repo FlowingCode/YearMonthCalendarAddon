@@ -4,7 +4,7 @@
 
 	<groupId>org.vaadin.addons.flowingcode</groupId>
 	<artifactId>year-month-calendar</artifactId>
-	<version>2.3.1-SNAPSHOT</version>
+	<version>2.3.1</version>
 	<name>Year Month Calendar Add-on</name>
 	<description>Year Month Calendar Add-on for Vaadin Flow</description>
 
@@ -36,7 +36,7 @@
 		<url>https://github.com/FlowingCode/YearMonthCalendarAddon</url>
 		<connection>scm:git:git://github.com/FlowingCode/YearMonthCalendarAddon.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com:/FlowingCode/YearMonthCalendarAddon.git</developerConnection>
-		<tag>2.x</tag>
+		<tag>year-month-calendar-2.3.1</tag>
 	</scm>
 
 	<dependencyManagement>
