@@ -20,6 +20,7 @@
 package com.flowingcode.addons.ycalendar;
 
 import com.flowingcode.vaadin.addons.DemoLayout;
+import com.flowingcode.vaadin.addons.GithubBranch;
 import com.flowingcode.vaadin.addons.GithubLink;
 import com.flowingcode.vaadin.addons.demo.TabbedDemo;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -30,6 +31,7 @@ import com.vaadin.flow.router.Route;
 @ParentLayout(DemoLayout.class)
 @Route("year-month-calendar")
 @GithubLink("https://github.com/FlowingCode/YearMonthCalendarAddon")
+@GithubBranch("2.x")
 @StyleSheet("context://styles/ycalendar-styles.css")
 public class YearMonthCalendarDemoView extends TabbedDemo {
 
