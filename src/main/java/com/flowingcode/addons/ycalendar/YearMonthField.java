@@ -37,7 +37,8 @@ public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, 
   private static <R,S> SerializableFunction<R,S> map(SerializableFunction<R,S> f) {
     return r->Optional.ofNullable(r).map(f).orElse(null);
   }
-  
+
+  /** Constructs a new YearMonthField initializing its value to the current year and month. */
   public <P> YearMonthField() {
     super(VALUE_PROPERTY, null, String.class, map(YearMonth::parse), map(YearMonth::toString));
     setValue(YearMonth.now());

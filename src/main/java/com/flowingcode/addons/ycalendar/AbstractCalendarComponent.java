@@ -31,6 +31,10 @@ import com.vaadin.flow.shared.Registration;
 import elemental.json.JsonObject;
 import java.util.Objects;
 
+/**
+ * A base abstract class for calendar components, with additional methods used for i18n initialization
+ * and listener registration.
+ */
 @SuppressWarnings("serial")
 public abstract class AbstractCalendarComponent<COMPONENT extends Component> extends Component {
 
@@ -44,6 +48,11 @@ public abstract class AbstractCalendarComponent<COMPONENT extends Component> ext
     refreshAll();
   }
 
+  /**
+   * Sets the i18n object.
+   *
+   * @param i18n the DatepickerI18n object used to initialize i18n
+   */
   public void setI18n(DatePickerI18n i18n) {
     Objects.requireNonNull(i18n, "The I18N properties object should not be null");
     this.i18n = i18n;

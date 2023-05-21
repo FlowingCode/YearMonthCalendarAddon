@@ -36,16 +36,37 @@ public class DateSelectedEvent<T extends Component> extends ComponentEvent<T> {
 
   private LocalDate date;
 
+  /**
+   * Creates a new instance of DateSelectedEvent with a specified source component and date string.
+   *
+   * @param source       the source component
+   * @param fromClient   true if the event originated from the client, false otherwise
+   * @param date         a String representation of the date
+   * @throws DateTimeParseException if date argument cannot be parsed into a valid LocalDate
+   */
   public DateSelectedEvent(T source, boolean fromClient,
       @EventData("event.detail.value") String date) {
     this(source, fromClient, LocalDate.parse(date));
   }
 
+  /**
+   * Creates a new instance of DateSelectedEvent with a specified source component and LocalDate.
+   *
+   * @param source       the source component
+   * @param fromClient   true if the event originated from the client, false otherwise
+   * @param date         the selected date
+   * @throws NullPointerException if the LocalDate argument is null
+   */
   public DateSelectedEvent(T source, boolean fromClient, LocalDate date) {
     super(source, fromClient);
     this.date = Objects.requireNonNull(date);
   }
 
+  /**
+   * Retrieves the selected date associated with the event.
+   *
+   * @return LocalDate retrieved from this event
+   */
   public LocalDate getDate() {
     return date;
   }

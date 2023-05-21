@@ -33,6 +33,7 @@ import java.time.YearMonth;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
+/** A component for displaying a calendar view of a specific month and year. */
 @Tag("fc-month-calendar")
 @JsModule("./fc-month-calendar/month-calendar-mixin.js")
 @JsModule("./fc-month-calendar/fc-month-calendar.js")
@@ -45,31 +46,57 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
 
   private ValueProvider<LocalDate, String> classNameGenerator;
 
-  /** Creates a new instance of {@code MonthCalendar} for the given year and month. */
+  /**
+   * Creates a new instance of {@code MonthCalendar} for the given year and month.
+   * 
+   * @param year the year (in four digits) to display
+   * @param month the month-of-year to display
+   */
   public MonthCalendar(int year, Month month) {
     this(YearMonth.of(year, month));
   }
 
-  /** Creates a new instance of {@code MonthCalendar} for the given year-and-month. */
+  /**
+   * Creates a new instance of {@code MonthCalendar} for the given year and month.
+   *
+   * @param yearMonth the {@code YearMonth} to display
+   */
   public MonthCalendar(YearMonth yearMonth) {
     setYearMonth(yearMonth);
   }
 
+  /**
+   * Sets the readonly attribute for the component.
+   *
+   * @param readOnly the state of the readonly attribute
+   */
   public void setReadOnly(boolean readOnly) {
     getElement().setAttribute("readonly", readOnly);
   }
 
-  /** Returns the year-and-month that is displayed in this calendar. */
+  /**
+   * Returns the year and month displayed in this calendar.
+   *
+   * @return the year and month displayed in this calendar
+   */
   public YearMonth getYearMonth() {
     return yearMonth;
   }
 
-  /** Returns the month-of-year that is displayed in this calendar. */
+  /**
+   * Returns the month displayed in this calendar.
+   *
+   * @return the month displayed in this calendar
+   */
   public Month getMonth() {
     return yearMonth.getMonth();
   }
 
-  /** Sets the year-and-month that is displayed in this calendar. */
+  /**
+   * Sets the year and month to display in this calendar.
+   * 
+   * @param yearMonth the {@code YearMonth} to display
+   */
   public void setYearMonth(YearMonth yearMonth) {
     this.yearMonth = Objects.requireNonNull(yearMonth);
     this.yearMonth = Objects.requireNonNull(yearMonth);
@@ -79,18 +106,19 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
   }
   
   /**
-   * Sets the function that is used for generating CSS class names for rows in this calendar.
+   * Sets the function that generates CSS class names for days in this calendar.
+   *
    * Returning {@code null} from the generator results in no custom class name being set. Multiple
    * class names can be returned from the generator as space-separated.
+   *
+   * @param classNameGenerator the {@code ValueProvider} to use for generating class names
    */
   public void setClassNameGenerator(ValueProvider<LocalDate, String> classNameGenerator) {
     this.classNameGenerator = classNameGenerator;
     refreshAll();
   }
 
-  /**
-   * Refresh the styles for all the dates in the displayed year-and-month.
-   */
+  /** Refresh the styles of all dates in the displayed year and month. */
   @Override
   public void refreshAll() {
     IntStream.rangeClosed(1, yearMonth.lengthOfMonth()).forEach(dayOfMonth -> {
@@ -106,9 +134,10 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
   }
 
   /**
-   * Refresh the style for the given date.
+   * Refresh the style of the given date.
    *
-   * @throws IllegalArgumentException if the displayed year-and-month does not contain {@code date}.
+   * @param date the date to update the style for
+   * @throws IllegalArgumentException if the displayed year and month does not contain {@code date}
    */
   public void refreshItem(LocalDate date) {
     if (date.getYear() == yearMonth.getYear() && date.getMonth() == yearMonth.getMonth()) {

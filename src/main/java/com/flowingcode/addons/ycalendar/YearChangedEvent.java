@@ -26,24 +26,49 @@ import com.vaadin.flow.component.DomEvent;
 import com.vaadin.flow.component.EventData;
 import com.vaadin.flow.dom.DebouncePhase;
 
+/**
+ * An event that is triggered when the year value changes in a {@link YearCalendar}.
+ *
+ * @param <T> the source component type
+ */
 @DomEvent(value = "year-changed",
     debounce = @DebounceSettings(timeout = 200, phases = DebouncePhase.TRAILING))
 public class YearChangedEvent<T extends Component> extends ComponentEvent<T> {
 
   private static final long serialVersionUID = 1L;
 
+  /** The year of the event. */
   private int year;
 
+  /**
+   * Constructs an event with the given {@code source}, {@code boolean}, and {@code year}.
+   *
+   * @param source the source component
+   * @param fromClient whether the event originated from the client-side or the server-side
+   * @param year the year value of the event
+   */
   public YearChangedEvent(T source, boolean fromClient,
       @EventData("event.detail.value") String year) {
     this(source, fromClient, Integer.parseInt(year));
   }
 
+  /**
+   * Constructs an event with the given {@code source}, {@code boolean}, and {@code year}.
+   *
+   * @param source the source component
+   * @param fromClient whether the event originated from the client-side or the server-side
+   * @param year the year value of the event
+   */
   public YearChangedEvent(T source, boolean fromClient, int year) {
     super(source, fromClient);
     this.year = year;
   }
 
+  /**
+   * Gets the year of the event.
+   *
+   * @return the year of the event
+   */
   public int getYear() {
     return year;
   }
