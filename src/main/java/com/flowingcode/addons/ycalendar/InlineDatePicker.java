@@ -39,6 +39,7 @@ public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePick
     return r->Optional.ofNullable(r).map(f).orElse(null);
   }
   
+  /** Creates a new instance of InlineDatePicker initialized with the current date and with week numbers visible. */
   public InlineDatePicker() {
     super(VALUE_PROPERTY, null, String.class, map(LocalDate::parse), map(LocalDate::toString));
     setValue(LocalDate.now());
@@ -46,26 +47,23 @@ public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePick
   }
 
   /**
-   * Set the week number visible in the DatePicker.
-   *
-   * <p>Set true to display ISO-8601 week numbers in the calendar.
-   *
+   * Sets whether week numbers should be visible on the calendar.
    * <p>Notice that displaying week numbers is only supported when i18n.firstDayOfWeek is 1
    * (Monday).
    *
-   * @param weekNumbersVisible the boolean value to set
+   * @param weekNumbersVisible {@code true} if ISO-8601 week numbers should be displayed in the calendar, {@code false} otherwise
    */
   public void setWeekNumbersVisible(boolean weekNumbersVisible) {
     getElement().setProperty("showWeekNumbers", weekNumbersVisible);
   }
 
   /**
-   * Get the state of {@code showWeekNumbers} property of the datepicker
+   * Returns the state of the {@code showWeekNumbers} property of the datepicker.
    *
-   * <p>This property is not synchronized automatically from the client side, so the returned value
-   * may not be the same as in client side.
+   * <p>Note that this property is not synchronized automatically from the client side, so the returned value
+   * may not be the same as in client-side code.</p>
    *
-   * @return the {@code showWeekNumbers} property from the datepicker
+   * @return the state of the {@code showWeekNumbers} property of the datepicker
    */
   public boolean isWeekNumbersVisible() {
     return getElement().getProperty("showWeekNumbers", false);
