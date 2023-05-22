@@ -15,3 +15,7 @@ tsconfig.json
 types.d.ts
 /frontend/generated
 /frontend/index.html
+/vite.config.ts
+/vite.generated.ts
+/.npmrc
+src/main/dev-bundle
