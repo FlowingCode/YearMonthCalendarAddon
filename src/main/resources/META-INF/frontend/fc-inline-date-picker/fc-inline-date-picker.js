@@ -40,7 +40,11 @@ export class InlineDatePicker extends LitElement {
   
   willUpdate(changedProperties) {
     if (changedProperties.has('value')) {
-      this.date = this.value ? new Date(this.value) : undefined;;
+      this.date = this.value ? new Date(this.value) : undefined;
+      if(this.date){
+    	  // normalize date ignoring browser timezone
+          this.date = new Date(this.date.toISOString().slice(0, -1));
+      }
     }
     if (changedProperties.has('date')) {
       this.value = this.date ? this.date.toISOString().substring(0,10) : undefined;
