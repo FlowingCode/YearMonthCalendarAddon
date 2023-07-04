@@ -22,9 +22,12 @@ package com.flowingcode.addons.ycalendar;
 import com.vaadin.flow.component.AbstractSinglePropertyField;
 import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.function.SerializableFunction;
+import com.vaadin.flow.internal.JsonSerializer;
 import java.time.YearMonth;
+import java.util.Objects;
 import java.util.Optional;
 
 @SuppressWarnings("serial")
@@ -43,5 +46,15 @@ public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, 
     super(VALUE_PROPERTY, null, String.class, map(YearMonth::parse), map(YearMonth::toString));
     setValue(YearMonth.now());
   }  
-
+  
+  /**
+   * Sets the i18n object.
+   *
+   * @param i18n the DatepickerI18n object used to initialize i18n
+   */
+  public void setI18n(DatePickerI18n i18n) {
+    Objects.requireNonNull(i18n, "The I18N properties object should not be null");
+    getElement().setPropertyJson("i18n", JsonSerializer.toJson(i18n));
+  }
+  
 }

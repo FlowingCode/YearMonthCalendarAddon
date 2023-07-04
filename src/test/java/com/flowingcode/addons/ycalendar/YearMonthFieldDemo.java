@@ -20,24 +20,48 @@
 package com.flowingcode.addons.ycalendar;
 
 import com.flowingcode.vaadin.addons.demo.DemoSource;
-import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import java.time.DayOfWeek;
+import java.util.List;
 
 @DemoSource
 @PageTitle("Year-Month Field")
 @Route(value = "year-month-calendar/year-month-field", layout = YearMonthCalendarDemoView.class)
 public class YearMonthFieldDemo extends Div {
 
+  private static final String FRENCH = "French";
+  private static final String SPANISH = "Spanish";
+  private static final String ENGLISH = "English";
+
   public YearMonthFieldDemo() {
-
     YearMonthField field = new YearMonthField();
-
     add(field);
+
+    RadioButtonGroup<String> languageSelector = new RadioButtonGroup<>("Choose language:");
+    languageSelector.setItems(ENGLISH, SPANISH, FRENCH);
+    languageSelector.setValue(ENGLISH);
+    languageSelector.addValueChangeListener(e -> {
+      DatePickerI18n i18n = new DatePickerI18n();
+      switch (e.getValue()) {
+        case SPANISH:
+          i18n.setMonthNames(List.of("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+              "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"));
+          break;
+        case FRENCH:
+          i18n.setMonthNames(
+              List.of("janvier", "février", "mars", "avril", "mai", "juin", "juillet",
+                  "août", "septembre", "octobre", "novembre", "décembre"));
+          break;
+        default:
+          // english
+      }
+      field.setI18n(i18n);
+    });
+
+    add(languageSelector);
   }
 
 }

@@ -35,24 +35,26 @@ export class YearMonthField extends LitElement {
 
   constructor() {
     super();
-    this.i18n = {
-        formatTitle : (monthName, fullYear) => monthName + ' ' + fullYear,
-        monthNames: [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'
-        ],
-      };
+    
+    this._i18n = {};
+    this.__setDefaultFormatTitle(this._i18n);
+	this.__setDefaultMonthNames(this._i18n);
   }
+  
+  set i18n(value) {
+    let oldValue = this._i18n;
+    this._i18n = value;
+	  
+    if(!this._i18n.formatTitle){
+      this.__setDefaultFormatTitle(this._i18n);
+    }
+    if(!this._i18n.monthNames){
+      this.__setDefaultMonthNames(this._i18n);
+    }
+    this.requestUpdate('i18n', oldValue);
+  }
+  
+  get i18n() { return this._i18n; }
 
   willUpdate(changedProperties) {
     if (changedProperties.has('value')) {
@@ -128,7 +130,15 @@ export class YearMonthField extends LitElement {
   __incMonth() {
     this.__addMonths(1); 
   }
- 
+
+  __setDefaultFormatTitle(obj){
+    obj.formatTitle = (monthName, fullYear) => monthName + ' ' + fullYear;
+  }
+
+  __setDefaultMonthNames(obj){
+    obj.monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  }
+
 }
 
 customElements.define(YearMonthField.is, YearMonthField);
