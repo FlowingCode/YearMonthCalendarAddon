@@ -24,6 +24,7 @@ import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.function.SerializableFunction;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -31,6 +32,8 @@ import java.util.Optional;
 @SuppressWarnings("serial")
 @Tag("fc-inline-date-picker")
 @JsModule("./fc-inline-date-picker/fc-inline-date-picker.js")
+@Uses(YearMonthField.class)
+@Uses(MonthCalendar.class)
 public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePicker, LocalDate> implements HasSize, HasTheme {
 
   private static final String VALUE_PROPERTY = "value";
