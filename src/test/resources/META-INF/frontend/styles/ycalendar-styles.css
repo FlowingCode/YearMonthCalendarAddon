@@ -17,11 +17,11 @@
  * limitations under the License.
  * #L%
  */
-#content vaadin-horizontal-layout {
+.year-demo vaadin-horizontal-layout, .month-demo vaadin-horizontal-layout {
 	gap: 0px;
 	flex-wrap: wrap
 }
 
-#content vaadin-horizontal-layout > * {
+.year-demo vaadin-horizontal-layout > *, .month-demo vaadin-horizontal-layout > * {
 	padding-left: 1ex;
 }

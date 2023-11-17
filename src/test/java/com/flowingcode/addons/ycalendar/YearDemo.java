@@ -43,6 +43,7 @@ public class YearDemo extends Div {
       TestUtils.getMethod(IntegerField.class, "setStepButtonsVisible", boolean.class).orElse(null);
 
   public YearDemo() {
+    addClassName("year-demo");
     YearCalendar calendar = new YearCalendar();
     calendar.setClassNameGenerator(date -> {
       if (TestUtils.isPublicHoliday(date)) {
