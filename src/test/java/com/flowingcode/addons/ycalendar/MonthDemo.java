@@ -36,7 +36,7 @@ import java.time.YearMonth;
 public class MonthDemo extends Div {
 
   public MonthDemo() {
-
+    addClassName("month-demo");
     MonthCalendar calendar = new MonthCalendar(YearMonth.now());
 
     calendar.setClassNameGenerator(date -> {
