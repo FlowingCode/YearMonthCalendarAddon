@@ -20,14 +20,10 @@
 package com.flowingcode.addons.ycalendar;
 
 import com.flowingcode.vaadin.addons.demo.DemoSource;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import java.time.DayOfWeek;
 import java.util.Objects;
 
 @DemoSource
