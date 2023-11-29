@@ -26,6 +26,8 @@ import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.internal.JsonSerializer;
+import elemental.json.Json;
+import elemental.json.JsonValue;
 import java.time.YearMonth;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,9 +35,13 @@ import java.util.Optional;
 @SuppressWarnings("serial")
 @Tag("fc-year-month-field")
 @JsModule("./fc-year-month-field/fc-year-month-field.js")
-public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, YearMonth> implements HasTheme {
+public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, YearMonth>
+    implements HasTheme {
 
   private static final String VALUE_PROPERTY = "value";
+
+  private YearMonth max;
+  private YearMonth min;
 
   private static <R,S> SerializableFunction<R,S> map(SerializableFunction<R,S> f) {
     return r->Optional.ofNullable(r).map(f).orElse(null);
@@ -57,4 +63,50 @@ public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, 
     getElement().setPropertyJson("i18n", JsonSerializer.toJson(i18n));
   }
   
+  /**
+   * Sets the minimum year/month in the field.
+   *
+   * @param min the minimum year/month that is allowed to be selected, or <code>null</code> to
+   *        remove any minimum constraints
+   */
+  public void setMin(YearMonth min) {
+    JsonValue value = min == null ? Json.createNull()
+        : Json.parse("{'month': " + min.getMonth().ordinal() + ", 'year': " + min.getYear() + "}");
+    getElement().setPropertyJson("min", value);
+    this.min = min;
+  }
+
+  /**
+   * Gets the minimum year/month in the field.
+   *
+   * @return the minimum year/month that is allowed to be selected, or <code>null</code> if there's
+   *         no minimum
+   */
+  public YearMonth getMin() {
+    return min;
+  }
+
+  /**
+   * Sets the maximum year/month in the field.
+   *
+   * @param min the maximum year/month that is allowed to be selected, or <code>null</code> to
+   *        remove any maximum constraints
+   */
+  public void setMax(YearMonth max) {
+    JsonValue value = max == null ? Json.createNull()
+        : Json.parse("{'month': " + max.getMonth().ordinal() + ", 'year': " + max.getYear() + "}");
+    getElement().setPropertyJson("max", value);
+    this.max = max;
+  }
+
+  /**
+   * Gets the maximum year/month in the field.
+   *
+   * @return the maximum year/month that is allowed to be selected, or <code>null</code> if there's
+   *         no maximum
+   */
+  public YearMonth getMax() {
+    return max;
+  }
+
 }
