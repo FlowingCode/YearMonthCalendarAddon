@@ -20,12 +20,18 @@
 package com.flowingcode.addons.ycalendar;
 
 import com.flowingcode.vaadin.addons.demo.DemoSource;
+import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 
 @DemoSource
 @PageTitle("Year-Month Field")
@@ -62,6 +68,41 @@ public class YearMonthFieldDemo extends Div {
     });
 
     add(languageSelector);
+
+    Span minRangeValue = new Span("-");
+    Span maxRangeValue = new Span("-");
+    add(new Div(new Text("Min: "), minRangeValue, new Text(" :: Max: "), maxRangeValue));
+
+    YearMonth min = YearMonth.now().minusYears(2);
+    Button setMinRangeButton = new Button("Set min " + min.toString());
+    setMinRangeButton.addClickListener(e -> {
+      field.setMin(min);
+      minRangeValue
+          .setText(Optional.ofNullable(field.getMin()).map(YearMonth::toString).orElse("-"));
+    });
+
+    YearMonth max = YearMonth.now().plusYears(2);
+    Button setMaxRangeButton = new Button("Set max " + max.toString());
+    setMaxRangeButton.addClickListener(e -> {
+      field.setMax(max);
+      maxRangeValue
+          .setText(Optional.ofNullable(field.getMax()).map(YearMonth::toString).orElse("-"));
+    });
+
+    Button clearRangeButton = new Button("Clear range");
+    clearRangeButton.addClickListener(e -> {
+      field.setMin(null);
+      field.setMax(null);
+      minRangeValue.setText("-");
+      maxRangeValue.setText("-");
+    });
+
+    YearMonth newValue = YearMonth.now().plusYears(3);
+    Button setValueButton = new Button("Set value " + newValue.toString());
+    setValueButton.addClickListener(e -> field.setValue(newValue));
+
+    add(new HorizontalLayout(setMinRangeButton, setMaxRangeButton, clearRangeButton,
+        setValueButton));
   }
 
 }

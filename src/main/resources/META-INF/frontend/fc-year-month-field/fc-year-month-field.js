@@ -18,7 +18,7 @@
  * #L%
  */
 import { css, html, LitElement } from 'lit';
- 
+
 export class YearMonthField extends LitElement {
 
   static get is() { return 'fc-year-month-field'; }
@@ -29,6 +29,8 @@ export class YearMonthField extends LitElement {
       date:  {type: Date},
       year:  {type: Number, readOnly: true, state: true},
       month: {type: Number, readOnly: true, state: true},
+      min:   {type: Object, readOnly: true},
+	  max:   {type: Object, readOnly: true},
       i18n:  {type: Object}
     }
   }
@@ -39,6 +41,10 @@ export class YearMonthField extends LitElement {
     this._i18n = {};
     this.__setDefaultFormatTitle(this._i18n);
 	this.__setDefaultMonthNames(this._i18n);
+	this._decMonthDisabled = false;
+	this._incMonthDisabled = false;
+	this._decYearDisabled = false;
+	this._incYearDisabled = false;
   }
   
   set i18n(value) {
@@ -56,19 +62,42 @@ export class YearMonthField extends LitElement {
   
   get i18n() { return this._i18n; }
 
+  /**
+   * Checks if value is between min and max (inclusive).
+   */
+  __checkRange(value) {
+	return (!this.min || value >= this._minAsNumber) 
+	  && (!this.max || value <= this._maxAsNumber);
+  }
+
   willUpdate(changedProperties) {
     if (changedProperties.has('value')) {
-      this.date = this.value ? new Date(this.value.substring(0,7)+'-02') : new Date();
-    }
-    if (changedProperties.has('date')) {
-      this.value = this.date.toISOString().substring(0,7);
-      this.date.setDate(1);
-      this._year  = this.date.getFullYear();
-      this._month = this.date.getMonth()+1;
+	  this.date = this.value ? new Date(this.value.substring(0,7)+'-02') : new Date();
     }
     if (changedProperties.has('i18n') && !this.i18n) {
       this.i18n = changedProperties.get('i18n');	
     }
+    if (changedProperties.has('date') || changedProperties.has('min') || changedProperties.has('max')) {
+	  const strValue = this.date.toISOString().substring(0,7);
+	  this.__normalizeValue(strValue);
+      this.date.setDate(1);
+      this._year  = this.date.getFullYear();
+      this._month = this.date.getMonth() + 1;
+      this.__toggleButtons(this.min, this.max);
+    }
+  }
+  
+  __normalizeValue(value) {
+	  const intValue = parseInt(this.__yearMonthAsNumber(this.date.getFullYear(), this.date.getMonth()));
+	  if (this.min && intValue < this._minAsNumber){
+		  this.value = this.min.year + '-' + String(this.min.month + 1).padStart(2, '0');
+		  this.date = new Date(this.min.year, this.min.month);
+	  } if (this.max && intValue > this._maxAsNumber){
+          this.value = this.max.year + '-' + String(this.max.month + 1).padStart(2, '0');
+          this.date = new Date(this.max.year, this.max.month);
+	  } else {
+		  this.value = value;
+	  }
   }
 
   updated(changedProperties) {
@@ -96,11 +125,11 @@ export class YearMonthField extends LitElement {
 
   render() {
     return html`
-      <vaadin-button theme="small icon" @click="${this.__decYear}">&lt;&lt;</vaadin-button>
-      <vaadin-button theme="small icon" @click="${this.__decMonth}">&lt;</vaadin-button>
+      <vaadin-button id="dec-year-button"theme="small icon" @click="${this.__decYear}" ?disabled="${this._decYearDisabled}">&lt;&lt;</vaadin-button>
+      <vaadin-button id="dec-month-button" theme="small icon" @click="${this.__decMonth}" ?disabled="${this._decMonthDisabled}">&lt;</vaadin-button>
       <div part="header">${this.formatTitle(this._month, this._year)}</div>
-      <vaadin-button theme="small icon" @click="${this.__incMonth}">&gt;</vaadin-button>
-      <vaadin-button theme="small icon" @click="${this.__incYear}">&gt;&gt;</vaadin-button>
+      <vaadin-button id="inc-month-button" theme="small icon" @click="${this.__incMonth}" ?disabled="${this._incMonthDisabled}">&gt;</vaadin-button>
+      <vaadin-button id="inc-year-button" theme="small icon" @click="${this.__incYear}" ?disabled="${this._incYearDisabled}">&gt;&gt;</vaadin-button>
     `;
   }
   
@@ -116,19 +145,27 @@ export class YearMonthField extends LitElement {
   }
 
   __decYear() {
-    this.__addMonths(-12); 
+	if(!this._minAsNumber || this._minAsNumber < this.__dateAsNumber()){
+      this.__addMonths(-12);
+    }
   }
 
   __decMonth() {
-    this.__addMonths(-1);
+	if(!this._minAsNumber || this._minAsNumber < this.__dateAsNumber()){
+      this.__addMonths(-1);
+    }
   }
 
   __incYear() {
-    this.__addMonths(12); 
+	if(!this._maxAsNumber || this._maxAsNumber > this.__dateAsNumber()){
+      this.__addMonths(12);
+    }
   }
 
   __incMonth() {
-    this.__addMonths(1); 
+	if(!this._maxAsNumber || this._maxAsNumber > this.__dateAsNumber()){
+      this.__addMonths(1); 
+    }
   }
 
   __setDefaultFormatTitle(obj){
@@ -137,6 +174,65 @@ export class YearMonthField extends LitElement {
 
   __setDefaultMonthNames(obj){
     obj.monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  }
+  
+  /**
+   * Returns a number joining year and month. Month is left padded with zero up to two chars length.
+   */
+  __yearMonthAsNumber(year, month) {
+	  return parseInt(year + '' + String(month).padStart(2, '0'));
+  }
+  
+  /**
+   * Converts this.date to yearMonth number
+   */
+  __dateAsNumber() {
+	  return this.date ? this.__yearMonthAsNumber(this.date.getFullYear(), this.date.getMonth()) : undefined;
+  }
+  
+  /**
+   * Converts min or max value to yearMonth number. 
+   */
+  __minMaxAsNumber(value) {
+    return value ? this.__yearMonthAsNumber(value.year, value.month) : undefined;
+  }
+  
+  /** 
+   * Converts this.min to number
+   * @private 
+   */
+  get _minAsNumber() {
+    return this.__minMaxAsNumber(this.min);
+  }
+      		 
+  /** 
+   * Converts this.max to number
+   * @private 
+   */
+  get _maxAsNumber() {
+    return this.__minMaxAsNumber(this.max);
+  }
+  
+  /**
+   * Returns true if delta between minOrMax and this.date is less than 1 year (12 months) 
+   */
+  __dateDeltaLtYear(minOrMax) {
+    const toMonths = (year, month) => year * 12 + month;	  
+	const dateToMonths = toMonths(this.date.getFullYear(), this.date.getMonth());
+	return Math.abs(dateToMonths - toMonths(minOrMax.year, minOrMax.month)) < 12;
+  }
+  
+  /**
+   * Enable or disabled navigation buttons
+   */
+  __toggleButtons(min, max) {
+	const minAsNumber = this.__minMaxAsNumber(min);
+	const maxAsNumber = this.__minMaxAsNumber(max);
+	
+	this._decMonthDisabled = minAsNumber && minAsNumber >= this.__dateAsNumber();
+	this._incMonthDisabled = maxAsNumber && maxAsNumber <= this.__dateAsNumber();
+	this._decYearDisabled = minAsNumber && (minAsNumber >= this.__dateAsNumber() || this.__dateDeltaLtYear(min));
+	this._incYearDisabled = maxAsNumber && (maxAsNumber <= this.__dateAsNumber() || this.__dateDeltaLtYear(max));
   }
 
 }
