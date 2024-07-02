@@ -9,7 +9,7 @@
 	<description>Year Month Calendar Add-on for Vaadin Flow</description>
 
 	<properties>
-		<vaadin.version>24.1.0</vaadin.version>
+		<vaadin.version>24.4.4</vaadin.version>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -51,7 +51,7 @@
             <dependency>
             	<groupId>com.flowingcode.vaadin.addons.demo</groupId>
             	<artifactId>commons-demo</artifactId>
-            	<version>3.6.0</version>
+            	<version>4.0.0</version>
             </dependency>
 		</dependencies>
 	</dependencyManagement>
