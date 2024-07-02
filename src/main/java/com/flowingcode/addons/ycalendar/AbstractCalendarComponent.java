@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2023 Flowing Code
+ * Copyright (C) 2021 - 2024 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,10 +61,9 @@ public abstract class AbstractCalendarComponent<COMPONENT extends Component> ext
 
   private void setI18nWithJS() {
     runBeforeClientResponse(ui -> {
+      // Merge current web component I18N settings with new I18N settings
       JsonObject i18nObject = (JsonObject) JsonSerializer.toJson(i18n);
-      for (String key : i18nObject.keys()) {
-        getElement().executeJs("this.set('i18n." + key + "', $0)", i18nObject.get(key));
-      }
+      getElement().executeJs("this.i18n = Object.assign({}, this.i18n, $0);", i18nObject);
     });
   }
 
