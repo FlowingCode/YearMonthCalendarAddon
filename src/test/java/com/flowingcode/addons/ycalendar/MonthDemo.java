@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2023 Flowing Code
+ * Copyright (C) 2021 - 2024 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,8 +54,10 @@ public class MonthDemo extends Div {
       selectedDate.setText("Selected date: " + ev.getDate());
     });
 
-    Span instructions = new Span("Use arrow keys to move.");
-    add(new HorizontalLayout(instructions, selectedDate), calendar);
+    Span instructions = new Span("Use arrow keys to move."); // hide-source
+    add(new HorizontalLayout(instructions, selectedDate)); // hide-source
+    add(new LocaleSelector(calendar::setI18n)); // hide-source
+    add(calendar);
   }
 
 }
