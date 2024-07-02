@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2023 Flowing Code
+ * Copyright (C) 2021 - 2024 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,8 @@ public class TestUtils {
     HOLIDAYS.addAll(computeEasterHolidays(2021, 4, 4));
     HOLIDAYS.addAll(computeEasterHolidays(2022, 4, 17));
     HOLIDAYS.addAll(computeEasterHolidays(2023, 4, 9));
+    HOLIDAYS.addAll(computeEasterHolidays(2024, 3, 31));
+    HOLIDAYS.addAll(computeEasterHolidays(2025, 4, 20));
 
     HOLIDAYS.add(LocalDate.of(2021, 5, 24));
     HOLIDAYS.add(LocalDate.of(2021, 6, 21));
@@ -42,6 +44,7 @@ public class TestUtils {
     HOLIDAYS.add(LocalDate.of(2022, 8, 15));
     HOLIDAYS.add(LocalDate.of(2021, 10, 8));
     HOLIDAYS.add(LocalDate.of(2021, 10, 11));
+
     HOLIDAYS.add(LocalDate.of(2022, 10, 7));
     HOLIDAYS.add(LocalDate.of(2022, 10, 10));
     HOLIDAYS.add(LocalDate.of(2021, 11, 20));
@@ -50,13 +53,20 @@ public class TestUtils {
     HOLIDAYS.add(LocalDate.of(2022, 11, 21));
     HOLIDAYS.add(LocalDate.of(2022, 12, 9));
     HOLIDAYS.add(LocalDate.of(2022, 12, 25));
-    
+
     HOLIDAYS.add(LocalDate.of(2023,  5, 26));
     HOLIDAYS.add(LocalDate.of(2023,  6, 19));
     HOLIDAYS.add(LocalDate.of(2023,  8, 21));
     HOLIDAYS.add(LocalDate.of(2023, 10, 13));
     HOLIDAYS.add(LocalDate.of(2023, 10, 16));
     HOLIDAYS.add(LocalDate.of(2023, 11, 20));
+
+    HOLIDAYS.add(LocalDate.of(2024, 4, 1));
+    HOLIDAYS.add(LocalDate.of(2024, 6, 17));
+    HOLIDAYS.add(LocalDate.of(2024, 6, 21));
+    HOLIDAYS.add(LocalDate.of(2024, 10, 11));
+    HOLIDAYS.add(LocalDate.of(2024, 11, 18));
+
   }
 
   private static List<LocalDate> computeEasterHolidays(int y, int m, int d) {
