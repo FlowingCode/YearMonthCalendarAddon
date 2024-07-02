@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2023 Flowing Code
+ * Copyright (C) 2021 - 2024 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.router.PageTitle;
@@ -45,6 +46,7 @@ public class YearDemo extends Div {
   public YearDemo() {
     addClassName("year-demo");
     YearCalendar calendar = new YearCalendar();
+
     calendar.setClassNameGenerator(date -> {
       if (TestUtils.isPublicHoliday(date)) {
         return "holiday";
@@ -62,6 +64,7 @@ public class YearDemo extends Div {
       selectedDate.setText("Selected date: " + ev.getDate());
     });
 
+    // #if vaadin eq 0
     Span instructions = new Span("Use arrow keys or Ctrl+arrow keys to move.");
 
     IntegerField yearField = new IntegerField();
@@ -78,9 +81,17 @@ public class YearDemo extends Div {
     }
 
     yearField.setValue(calendar.getYear());
+    yearField.setLabel("Change year");
     yearField.addValueChangeListener(e -> calendar.setYear(e.getValue()));
 
-    add(new HorizontalLayout(instructions, selectedDate), yearField, calendar);
+    LocaleSelector localeSelector = new LocaleSelector(calendar::setI18n);
+    HorizontalLayout controls = new HorizontalLayout(yearField, localeSelector);
+    controls.setSpacing(true);
+    controls.setAlignItems(Alignment.BASELINE);
+
+    add(new HorizontalLayout(instructions, selectedDate), controls);
+    // #endif
+    add(calendar);
   }
 
 }
