@@ -30,7 +30,7 @@ import java.time.DayOfWeek;
 import java.time.YearMonth;
 
 @DemoSource
-@PageTitle("Month")
+@PageTitle("MonthCalendar")
 @CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
 @Route(value = "year-month-calendar/month", layout = YearMonthCalendarDemoView.class)
 public class MonthDemo extends Div {

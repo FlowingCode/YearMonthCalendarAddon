@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
 import java.time.DayOfWeek;
 
 @DemoSource
-@PageTitle("Year")
+@PageTitle("YearCalendar")
 @CssImport(value = "./styles/test_year-month-calendar.css", themeFor = "vaadin-month-calendar")
 @Route(value = "year-month-calendar/year", layout = YearMonthCalendarDemoView.class)
 public class YearDemo extends Div {
