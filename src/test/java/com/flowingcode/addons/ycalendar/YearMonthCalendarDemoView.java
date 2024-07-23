@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2023 Flowing Code
+ * Copyright (C) 2021 - 2024 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ public class YearMonthCalendarDemoView extends TabbedDemo {
 
   public YearMonthCalendarDemoView() {
     addDemo(YearDemo.class);
+    addDemo(YearI18NDemo.class);
     addDemo(YearReadonlyDemo.class);
     addDemo(MonthDemo.class);
     addDemo(InlineDatePickerDemo.class);
