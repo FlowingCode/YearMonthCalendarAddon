@@ -2,14 +2,14 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2023 Flowing Code
+ * Copyright (C) 2021 - 2024 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,9 @@ public class InlineDatePickerDemo extends Div {
   public InlineDatePickerDemo() {
 
     InlineDatePicker field = new InlineDatePicker();
+    // #if vaadin eq 0
+    add(new LocaleSelector(field::setI18n));
+    // #endif
 
     field.addValueChangeListener(ev->{
       Notification.show(Objects.toString(ev.getValue()));

@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2023 Flowing Code
+ * Copyright (C) 2021 - 2024 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +23,13 @@ import com.vaadin.flow.component.AbstractSinglePropertyField;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.function.SerializableFunction;
+import com.vaadin.flow.internal.JsonSerializer;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 
 @SuppressWarnings("serial")
@@ -70,6 +73,16 @@ public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePick
    */
   public boolean isWeekNumbersVisible() {
     return getElement().getProperty("showWeekNumbers", false);
+  }
+
+  /**
+   * Sets the i18n object.
+   *
+   * @param i18n the {@code DatepickerI18n} object used to initialize i18n
+   */
+  public void setI18n(DatePickerI18n i18n) {
+    Objects.requireNonNull(i18n, "The I18N properties object should not be null");
+    getElement().setPropertyJson("i18n", JsonSerializer.toJson(i18n));
   }
 
 }
