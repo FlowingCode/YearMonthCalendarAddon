@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2023 Flowing Code
+ * Copyright (C) 2021 - 2024 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,8 +54,10 @@ export class InlineDatePicker extends LitElement {
       this.displayDate = this.displayDate || new Date();
     }
     if (changedProperties.has('i18n') && this.i18n) {
-      this.shadowRoot.querySelector("fc-year-month-field").i18n=this.i18n;
-      this.shadowRoot.querySelector("fc-month-calendar").i18n=this.i18n;
+      [
+        this.shadowRoot.querySelector("fc-year-month-field"),
+        this.shadowRoot.querySelector("fc-month-calendar")
+      ].forEach(e=>{if (e) e.i18n=this.i18n;});
     }
   }
 
