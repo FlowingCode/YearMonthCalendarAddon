@@ -89,7 +89,7 @@ public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, 
   /**
    * Sets the maximum year/month in the field.
    *
-   * @param min the maximum year/month that is allowed to be selected, or <code>null</code> to
+   * @param max the maximum year/month that is allowed to be selected, or <code>null</code> to
    *        remove any maximum constraints
    */
   public void setMax(YearMonth max) {
