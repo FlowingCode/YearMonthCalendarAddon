@@ -19,3 +19,4 @@ types.d.ts
 /vite.generated.ts
 /.npmrc
 src/main/dev-bundle
+/src/main/frontend
