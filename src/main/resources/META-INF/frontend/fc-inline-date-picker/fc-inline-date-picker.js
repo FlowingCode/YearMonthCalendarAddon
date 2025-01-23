@@ -18,6 +18,7 @@
  * #L%
  */
 import { css, html, LitElement } from 'lit';
+import {formatDate} from '../fc-year-calendar/fc-calendar-utils.js';
  
 export class InlineDatePicker extends LitElement {
 
@@ -41,13 +42,13 @@ export class InlineDatePicker extends LitElement {
   willUpdate(changedProperties) {
     if (changedProperties.has('value')) {
       this.date = this.value ? new Date(this.value) : undefined;
-      if(this.date){
+      if(this.date && this.date.getTimezoneOffset()>0){
     	  // normalize date ignoring browser timezone
           this.date = new Date(this.date.toISOString().slice(0, -1));
       }
     }
     if (changedProperties.has('date')) {
-      this.value = this.date ? this.date.toISOString().substring(0,10) : undefined;
+      this.value = this.date ? formatDate(this.date).substring(0,10) : undefined;
       this.displayDate = this.date || this.displayDate;
     }
     if (changedProperties.has('displayDate')) {
