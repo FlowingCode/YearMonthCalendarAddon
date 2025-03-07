@@ -25,8 +25,12 @@ import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.function.SerializableFunction;
+import com.vaadin.flow.function.ValueProvider;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @SuppressWarnings("serial")
 @Tag("fc-inline-date-picker")
@@ -35,6 +39,10 @@ public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePick
 
   private static final String VALUE_PROPERTY = "value";
   
+  private ValueProvider<LocalDate, String> classNameGenerator;
+
+  private YearMonth yearMonth;
+
   private static <R,S> SerializableFunction<R,S> map(SerializableFunction<R,S> f) {
     return r->Optional.ofNullable(r).map(f).orElse(null);
   }
@@ -43,6 +51,9 @@ public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePick
     super(VALUE_PROPERTY, null, String.class, map(LocalDate::parse), map(LocalDate::toString));
     setValue(LocalDate.now());
     setWeekNumbersVisible(true);
+    getElement().addEventListener("month-change", event -> {
+      setYearMonth(YearMonth.parse(event.getEventData().getString("event.detail.value")));
+    }).addEventData("event.detail.value");
   }
 
   /**
@@ -69,6 +80,56 @@ public class InlineDatePicker extends AbstractSinglePropertyField<InlineDatePick
    */
   public boolean isWeekNumbersVisible() {
     return getElement().getProperty("showWeekNumbers", false);
+  }
+
+  /**
+   * Sets the function that generates CSS class names for days in this calendar.
+   *
+   * Returning {@code null} from the generator results in no custom class name being set. Multiple
+   * class names can be returned from the generator as space-separated.
+   *
+   * @param classNameGenerator the {@code ValueProvider} to use for generating class names
+   */
+  public void setClassNameGenerator(ValueProvider<LocalDate, String> classNameGenerator) {
+    this.classNameGenerator = classNameGenerator;
+    refreshAll();
+  }
+
+  /** Refresh the styles of all dates in the displayed year and month. */
+  public void refreshAll() {
+    IntStream
+        .rangeClosed(1, yearMonth.lengthOfMonth())
+        .mapToObj(yearMonth::atDay).forEach(this::refreshItem);
+    getElement().executeJs("setTimeout(()=>this._clearEmptyDaysStyle())");
+  }
+
+  /**
+   * Refresh the style of the given date.
+   *
+   * @param date the date to update the style for
+   */
+  public void refreshItem(LocalDate date) {
+    if (date.getYear() == yearMonth.getYear() && date.getMonth() == yearMonth.getMonth()) {
+      String className =
+          Optional.ofNullable(classNameGenerator).map(g -> g.apply(date)).orElse(null);
+      getElement().executeJs("setTimeout(()=>{this._setStyleForDay($0,$1);})", date.getDayOfMonth(),
+          className);
+    }
+  }
+
+  @Override
+  public void setValue(LocalDate value) {
+    Objects.requireNonNull(value);
+    super.setValue(value);
+    setYearMonth(YearMonth.from(value));
+  }
+
+  private void setYearMonth(YearMonth value) {
+    Objects.requireNonNull(value);
+    if (!value.equals(yearMonth)) {
+      yearMonth = value;
+      refreshAll();
+    }
   }
 
 }
