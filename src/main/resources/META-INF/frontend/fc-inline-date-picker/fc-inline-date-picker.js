@@ -84,13 +84,22 @@ export class InlineDatePicker extends LitElement {
   }
 
   __onDisplayMonthChange() {
-    this.displayDate=new Date(this.shadowRoot.querySelector("fc-year-month-field").value+'-02');
+    const yearMonth = this.shadowRoot.querySelector("fc-year-month-field").value;
+    this.displayDate=new Date(yearMonth+'-02');
+    this.dispatchEvent(new CustomEvent("month-change",{detail:{value: yearMonth}}));
   }
 
   __onDateSelected(e) {	
       this.value=e.detail.value;
   }
 
+  _setStyleForDay(i,className) { 
+    this.shadowRoot.querySelector("fc-month-calendar")._setStyleForDay(i,className);
+  }
+  
+  _clearEmptyDaysStyle() {
+    this.shadowRoot.querySelector("fc-month-calendar")._clearEmptyDaysStyle();
+  }
 }
 
 customElements.define(InlineDatePicker.is, InlineDatePicker);

@@ -42,6 +42,17 @@ public class InlineDatePickerDemo extends Div {
     field.addValueChangeListener(ev->{
       Notification.show(Objects.toString(ev.getValue()));
     });
+
+    field.setClassNameGenerator(date -> {
+      if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+        return "weekend";
+      } else if (TestUtils.isPublicHoliday(date)) {
+        return "holiday";
+      } else {
+        return null;
+      }
+    });
+
     add(field);
   }
 
