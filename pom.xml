@@ -207,6 +207,7 @@
 					<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
 					<excludes>
 						<exclude>**/shadow-focus-mixin.js</exclude>
+						<exclude>**/main/dev-bundle/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
