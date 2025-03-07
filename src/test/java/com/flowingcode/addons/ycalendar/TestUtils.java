@@ -67,6 +67,11 @@ public class TestUtils {
     HOLIDAYS.add(LocalDate.of(2024, 10, 11));
     HOLIDAYS.add(LocalDate.of(2024, 11, 18));
 
+    HOLIDAYS.add(LocalDate.of(2025, 5, 2));
+    HOLIDAYS.add(LocalDate.of(2025, 6, 16));
+    HOLIDAYS.add(LocalDate.of(2025, 8, 15));
+    HOLIDAYS.add(LocalDate.of(2025, 11, 21));
+    HOLIDAYS.add(LocalDate.of(2025, 11, 24));
   }
 
   private static List<LocalDate> computeEasterHolidays(int y, int m, int d) {
