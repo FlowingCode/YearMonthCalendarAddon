@@ -31,6 +31,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Tag("fc-month-calendar")
@@ -93,15 +94,9 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
    */
   @Override
   public void refreshAll() {
-    IntStream.rangeClosed(1, yearMonth.lengthOfMonth()).forEach(dayOfMonth -> {
-      String className;
-      if (classNameGenerator != null) {
-        className = classNameGenerator.apply(yearMonth.atDay(dayOfMonth));
-      } else {
-        className = null;
-      }
-      setStyleForDay(dayOfMonth, className);
-    });
+    IntStream.rangeClosed(1, yearMonth.lengthOfMonth())
+        .mapToObj(yearMonth::atDay)
+        .forEach(this::refreshItem);
     getElement().executeJs("setTimeout(()=>this._clearEmptyDaysStyle())");
   }
 
@@ -112,20 +107,13 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
    */
   public void refreshItem(LocalDate date) {
     if (date.getYear() == yearMonth.getYear() && date.getMonth() == yearMonth.getMonth()) {
-      String className;
-      if (classNameGenerator != null) {
-        className = classNameGenerator.apply(date);
-      } else {
-        className = null;
-      }
-      setStyleForDay(date.getDayOfMonth(), className);
+      String className =
+          Optional.ofNullable(classNameGenerator).map(g -> g.apply(date)).orElse(null);
+      getElement().executeJs("setTimeout(()=>{this._setStyleForDay($0,$1);})", date.getDayOfMonth(),
+          className);
     } else {
       throw new IllegalArgumentException();
     }
-  }
-
-  private void setStyleForDay(int dayOfMonth, String className) {
-    getElement().executeJs("setTimeout(()=>{this._setStyleForDay($0,$1);})", dayOfMonth, className);
   }
 
 }
