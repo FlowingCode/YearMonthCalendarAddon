@@ -30,6 +30,7 @@ import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.shared.Registration;
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Tag("fc-year-calendar")
@@ -80,13 +81,8 @@ public class YearCalendar extends AbstractCalendarComponent<YearCalendar> implem
   */
   public void refreshItem(LocalDate date) {
     if (date.getYear() == getYear()) {
-      String className;
-      if (classNameGenerator != null) {
-        className = classNameGenerator.apply(date);
-      } else {
-        className = null;
-      }
-
+      String className =
+          Optional.ofNullable(classNameGenerator).map(g -> g.apply(date)).orElse(null);
       getElement().executeJs("setTimeout(()=>{this._setStyleForDay($0,$1,$2);})",
           date.getDayOfMonth(), date.getMonthValue(), className);
     }
