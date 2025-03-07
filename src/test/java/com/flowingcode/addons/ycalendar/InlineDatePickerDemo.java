@@ -24,6 +24,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import java.time.DayOfWeek;
 import java.util.Objects;
 
 @DemoSource
@@ -41,6 +42,17 @@ public class InlineDatePickerDemo extends Div {
     field.addValueChangeListener(ev->{
       Notification.show(Objects.toString(ev.getValue()));
     });
+
+    field.setClassNameGenerator(date -> {
+      if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+        return "weekend";
+      } else if (TestUtils.isPublicHoliday(date)) {
+        return "holiday";
+      } else {
+        return null;
+      }
+    });
+
     add(field);
   }
 
