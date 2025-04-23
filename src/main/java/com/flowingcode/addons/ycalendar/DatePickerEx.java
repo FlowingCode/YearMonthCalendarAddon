@@ -74,8 +74,18 @@ public class DatePickerEx extends DatePicker {
   }
 
   @ClientCallable
-  private JsonObject fetchStyles(String yearMonthStr) {
-    YearMonth yearMonth = YearMonth.parse(yearMonthStr);
+  private JsonObject fetchStyles(String minStr, String maxStr) {
+    JsonObject result = Json.createObject();
+    YearMonth min = YearMonth.parse(minStr);
+    YearMonth max = YearMonth.parse(maxStr);
+    for (YearMonth m = min; m.compareTo(max) <= 0; m = m.plusMonths(1)) {
+      String key = m.toString();
+      getStyles(m).ifPresent(styles -> result.put(key, styles));
+    }
+    return result;
+  }
+
+  private Optional<JsonObject> getStyles(YearMonth yearMonth) {
     JsonObject monthStyles = Json.createObject();
     for (int i = 1, n = yearMonth.lengthOfMonth(); i <= n; i++) {
       LocalDate date = yearMonth.atDay(i);
@@ -83,7 +93,7 @@ public class DatePickerEx extends DatePicker {
         monthStyles.put(Integer.toString(date.getDayOfMonth()), className);
       });
     }
-    return monthStyles;
+    return monthStyles.keys().length > 0 ? Optional.of(monthStyles) : Optional.empty();
   }
 
 }

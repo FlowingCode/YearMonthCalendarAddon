@@ -47,15 +47,43 @@ export class FcDatePicker extends DatePicker {
         }
     };
 
-    const _getStyle = key => {
-        return this._styles[key] || (this._styles[key] = this.$server.fetchStyles(key));
+    const _getStyle = month => {
+        const tostr = date => date.toISOString().substr(0,7);
+        const add   = (date, delta) => new Date(date.getFullYear(), date.getMonth()+delta, 1);
+        
+        const key = tostr(month);
+        
+        if (!this._styles[key]) {
+            let min = month;
+            let max = month;
+            const N = 50;
+            for (let i=0;i<N;i++) {
+                min=add(min,-1);
+                if(this._styles[tostr(min)]) {min=add(min,+1); break;}
+            }
+            for (let i=0;i<N;i++) {
+                max=add(max,+1);
+                if(this._styles[tostr(max)]) {max=add(max,-1); break;}
+            }
+            
+            const fetched = this.$server.fetchStyles(tostr(min), tostr(max)).catch(err => {
+                console.error('fetchStyles '+tostr(min)+' '+tostr(max)+' failed', err);
+                return {};
+            });
+            for (let m=min;m<=max;m=add(m,1)) {
+                const k = tostr(m);
+                this._styles[k] = new Promise(resolve => {
+                    fetched.then(styles=>resolve(styles[k] || {}));
+                });
+            }
+        }
+        return this._styles[key];
     }
     
     const _updateMonthStyles = function(element) {
         const month = element.month;
-        const key   = month.toISOString().substr(0,7);
         _clearStyles.call(element);
-        _getStyle(key).then(styles=>setTimeout(()=>{
+        _getStyle(month).then(styles=>setTimeout(()=>{
             if (element.month===month) {
                 for (let i in styles) {
                     _setStyleForDay.call(element,i,styles[i]);
@@ -77,7 +105,7 @@ export class FcDatePicker extends DatePicker {
                         setTimeout(()=> _updateMonthStyles(calendar));
                     }
                 });
-                return calendar;
+                return calendar; 
             }
         }
     };
