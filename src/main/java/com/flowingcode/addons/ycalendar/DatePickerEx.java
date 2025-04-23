@@ -19,11 +19,16 @@
  */
 package com.flowingcode.addons.ycalendar;
 
+import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.function.ValueProvider;
+import elemental.json.Json;
+import elemental.json.JsonObject;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.Optional;
 
 @SuppressWarnings("serial")
 @Tag("fc-date-picker")
@@ -48,6 +53,37 @@ public class DatePickerEx extends DatePicker {
   public DatePickerEx(LocalDate initialDate) {
     this();
     setValue(initialDate);
+  }
+
+  /**
+   * Sets the function that generates CSS class names for days in this calendar.
+   *
+   * Returning {@code null} from the generator results in no custom class name being set. Multiple
+   * class names can be returned from the generator as space-separated.
+   *
+   * @param classNameGenerator the {@code ValueProvider} to use for generating class names
+   */
+  public void setClassNameGenerator(ValueProvider<LocalDate, String> classNameGenerator) {
+    this.classNameGenerator = classNameGenerator;
+    refreshAll();
+  }
+
+  /** Refresh the styles of all dates in the displayed year and month. */
+  public void refreshAll() {
+    // getElement().executeJs("setTimeout(()=>this._clearEmptyDaysStyle())");
+  }
+
+  @ClientCallable
+  private JsonObject fetchStyles(String yearMonthStr) {
+    YearMonth yearMonth = YearMonth.parse(yearMonthStr);
+    JsonObject monthStyles = Json.createObject();
+    for (int i = 1, n = yearMonth.lengthOfMonth(); i <= n; i++) {
+      LocalDate date = yearMonth.atDay(i);
+      Optional.ofNullable(classNameGenerator).map(g -> g.apply(date)).ifPresent(className -> {
+        monthStyles.put(Integer.toString(date.getDayOfMonth()), className);
+      });
+    }
+    return monthStyles;
   }
 
 }

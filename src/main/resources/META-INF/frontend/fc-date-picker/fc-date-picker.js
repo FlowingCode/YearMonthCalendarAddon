@@ -23,12 +23,64 @@ export class FcDatePicker extends DatePicker {
   }
   
   ready() {
+    super.ready();
+    
     const buttons=document.createElement('fc-date-picker-buttons');
     buttons.setAttribute('slot','prefix');
     this.appendChild(buttons);
     buttons.addEventListener("click-up", ()=>this._onButtonClick(+1));
     buttons.addEventListener("click-down", ()=>this._onButtonClick(-1));
-    super.ready();
+    
+    this._styles={};
+    
+    const _clearStyles = function() { 
+        let e = this.shadowRoot.querySelectorAll("[part~='date']");
+        e.forEach(item => item.removeAttribute('class'));
+    };
+
+    const _setStyleForDay = function(i,className) {
+        let e = this.shadowRoot.querySelectorAll("[part~='date']:not(:empty)")[i-1];
+        if (className) {
+            e.className=className;
+        } else {
+            e.removeAttribute('class');
+        }
+    };
+
+    const _getStyle = key => {
+        return this._styles[key] || (this._styles[key] = this.$server.fetchStyles(key));
+    }
+    
+    const _updateMonthStyles = function(element) {
+        const month = element.month;
+        const key   = month.toISOString().substr(0,7);
+        _clearStyles.call(element);
+        _getStyle(key).then(styles=>setTimeout(()=>{
+            if (element.month===month) {
+                for (let i in styles) {
+                    _setStyleForDay.call(element,i,styles[i]);
+                }
+            }
+        }));
+    }
+    
+    this._overlayElement.renderer = e => {
+        this._boundOverlayRenderer.call(this,e);
+        
+        if (!this._overlayContent._monthScroller.__fcWrapped) {
+            const createElement = this._overlayContent._monthScroller._createElement;
+            this._overlayContent._monthScroller.__fcWrapped = true;
+            this._overlayContent._monthScroller._createElement = () => {
+                var calendar = createElement();
+                calendar.addEventListener('dom-change',ev=>{
+                    if (ev.composedPath()[0].as=='week') {
+                        setTimeout(()=> _updateMonthStyles(calendar));
+                    }
+                });
+                return calendar;
+            }
+        }
+    };
   }
   
   _onButtonClick(delta) {
