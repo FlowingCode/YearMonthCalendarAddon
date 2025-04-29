@@ -30,6 +30,12 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Optional;
 
+/**
+ * A {@code DatePicker} with UI controls for adjusting individual date parts and a date-based class
+ * name generator.
+ *
+ * @author Javier Godoy / Flowing Code
+ */
 @SuppressWarnings("serial")
 @Tag("fc-date-picker")
 @JsModule("./fc-date-picker/fc-date-picker.js")
