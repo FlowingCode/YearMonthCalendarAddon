@@ -39,7 +39,7 @@ public class YearMonthCalendarDemoView extends TabbedDemo {
     addDemo(YearI18NDemo.class);
     addDemo(YearReadonlyDemo.class);
     addDemo(MonthDemo.class);
-    addDemo(DatePickerDemo.class);
+    addDemo(ExtendedDatePickerDemo.class);
     addDemo(InlineDatePickerDemo.class);
     addDemo(YearMonthFieldDemo.class);
     setSizeFull();
