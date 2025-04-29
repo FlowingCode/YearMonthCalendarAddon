@@ -208,6 +208,7 @@
 					<excludes>
 						<exclude>**/shadow-focus-mixin.js</exclude>
 						<exclude>**/main/dev-bundle/**</exclude>
+						<exclude>**/main/frontend/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
