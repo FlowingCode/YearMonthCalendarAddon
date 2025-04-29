@@ -41,7 +41,7 @@ public class ExtendedDatePickerDemo extends Div {
     // #endif
 
     field.addValueChangeListener(ev->{
-      Notification.show(Objects.toString(ev.getValue()));
+      Notification.show("Date changed to: " + Objects.toString(ev.getValue()));
     });
 
     field.setClassNameGenerator(date -> {
