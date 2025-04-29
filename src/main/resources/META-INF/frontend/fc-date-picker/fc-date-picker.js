@@ -71,6 +71,13 @@ export class FcDatePicker extends DatePicker {
     };
   }
   
+  refreshAll() {
+    this._styles = {};
+    if (this._overlayContent) {
+        this._overlayContent._monthScroller.querySelectorAll("vaadin-month-calendar").forEach(calendar=>this._updateMonthStyles(calendar));
+    }
+  }
+  
   _updateMonthStyles(element) {
     
     const _clearStyles = function() { 
