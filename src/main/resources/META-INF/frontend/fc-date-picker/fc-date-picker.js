@@ -52,11 +52,32 @@ export class FcDatePicker extends DatePicker {
     
     this._styles={};
     
+    this._overlayElement.renderer = e => {
+        this._boundOverlayRenderer.call(this,e);
+        
+        if (!this._overlayContent._monthScroller.__fcWrapped) {
+            const createElement = this._overlayContent._monthScroller._createElement;
+            this._overlayContent._monthScroller.__fcWrapped = true;
+            this._overlayContent._monthScroller._createElement = () => {
+                var calendar = createElement();
+                calendar.addEventListener('dom-change',ev=>{
+                    if (ev.composedPath()[0].as=='week') {
+                        setTimeout(()=> this._updateMonthStyles(calendar));
+                    }
+                });
+                return calendar; 
+            }
+        }
+    };
+  }
+  
+  _updateMonthStyles(element) {
+    
     const _clearStyles = function() { 
         let e = this.shadowRoot.querySelectorAll("[part~='date']");
         e.forEach(item => item.removeAttribute('class'));
     };
-
+ 
     const _setStyleForDay = function(i,className) {
         let e = this.shadowRoot.querySelectorAll("[part~='date']:not(:empty)")[i-1];
         if (className) {
@@ -65,7 +86,7 @@ export class FcDatePicker extends DatePicker {
             e.removeAttribute('class');
         }
     };
-
+ 
     const _getStyle = month => {
         const tostr = date => date.toISOString().substr(0,7);
         const add   = (date, delta) => new Date(date.getFullYear(), date.getMonth()+delta, 1);
@@ -98,36 +119,16 @@ export class FcDatePicker extends DatePicker {
         }
         return this._styles[key];
     }
-    
-    const _updateMonthStyles = function(element) {
-        const month = element.month;
-        _clearStyles.call(element);
-        _getStyle(month).then(styles=>setTimeout(()=>{
-            if (element.month===month) {
-                for (let i in styles) {
-                    _setStyleForDay.call(element,i,styles[i]);
-                }
-            }
-        }));
-    }
-    
-    this._overlayElement.renderer = e => {
-        this._boundOverlayRenderer.call(this,e);
-        
-        if (!this._overlayContent._monthScroller.__fcWrapped) {
-            const createElement = this._overlayContent._monthScroller._createElement;
-            this._overlayContent._monthScroller.__fcWrapped = true;
-            this._overlayContent._monthScroller._createElement = () => {
-                var calendar = createElement();
-                calendar.addEventListener('dom-change',ev=>{
-                    if (ev.composedPath()[0].as=='week') {
-                        setTimeout(()=> _updateMonthStyles(calendar));
-                    }
-                });
-                return calendar; 
+ 
+    const month = element.month;
+    _clearStyles.call(element);
+    _getStyle(month).then(styles=>setTimeout(()=>{
+        if (element.month===month) {
+            for (let i in styles) {
+                _setStyleForDay.call(element,i,styles[i]);
             }
         }
-    };
+    }));
   }
   
   _onButtonClick(delta) {
