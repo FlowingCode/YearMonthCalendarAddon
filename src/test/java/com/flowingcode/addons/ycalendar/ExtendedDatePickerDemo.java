@@ -31,11 +31,11 @@ import java.util.Objects;
 @DemoSource
 @PageTitle("DatePicker")
 @Route(value = "year-month-calendar/date-picker", layout = YearMonthCalendarDemoView.class)
-public class DatePickerDemo extends Div {
+public class ExtendedDatePickerDemo extends Div {
 
-  public DatePickerDemo() {
+  public ExtendedDatePickerDemo() {
 
-    DatePickerEx field = new DatePickerEx(LocalDate.now());
+    ExtendedDatePicker field = new ExtendedDatePicker(LocalDate.now());
     // #if vaadin eq 0
     add(new LocaleSelector(field::setI18n));
     // #endif

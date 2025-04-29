@@ -33,14 +33,14 @@ import java.util.Optional;
 @SuppressWarnings("serial")
 @Tag("fc-date-picker")
 @JsModule("./fc-date-picker/fc-date-picker.js")
-public class DatePickerEx extends DatePicker {
+public class ExtendedDatePicker extends DatePicker {
 
   private ValueProvider<LocalDate, String> classNameGenerator;
 
   /**
    * Default constructor.
    */
-  public DatePickerEx() {
+  public ExtendedDatePicker() {
     super();
   }
 
@@ -50,7 +50,7 @@ public class DatePickerEx extends DatePicker {
    *
    * @param initialDate the pre-selected date in the picker
    */
-  public DatePickerEx(LocalDate initialDate) {
+  public ExtendedDatePicker(LocalDate initialDate) {
     this();
     setValue(initialDate);
   }
