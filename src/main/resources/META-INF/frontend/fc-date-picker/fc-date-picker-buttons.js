@@ -27,14 +27,16 @@ export class FcDatePickerButtons extends ThemableMixin(LitElement) {
   }
   render() {
     return html`
-          <button id="up"
-                  type="button"
+       <div id="up">
+          <button type="button"
                   aria-label="Increment"
                   @click=${this._clickUp}></button>
-          <button id="down"
-                  type="button"
+       </div>
+       <div id="down">
+          <button type="button"
                   aria-label="Decrement"
                   @click=${this._clickDown}></button>
+       </div>
     `;
   }
   static get styles() {
@@ -45,19 +47,32 @@ export class FcDatePickerButtons extends ThemableMixin(LitElement) {
         align-self: stretch;
         justify-content: space-evenly;
     }
+    div {
+        min-height: 50%;
+        display: flex;
+        padding-left: calc(0.575em + var(--lumo-border-radius-m) / 4 - 1px);
+    }
+    div#up {
+        align-items: flex-end;
+    }
+    div#down {
+        align-items: flex-start;
+    }
     button {
         padding: 0;
-        margin: 0;
         max-height: 0.9rem;
-        box-sizing: content-box;
+        line-height: 100%;
+        border: none;
+        background-color: transparent;
+        color: var(--lumo-contrast-60pct);
     }
     button::before {
         display: block;
     }
-    #up::before {
+    #up button::before {
         content: "\\25B2";
     }
-    #down::before {
+    #down button::before {
         content: "\\25BC";
     }`;
   }
