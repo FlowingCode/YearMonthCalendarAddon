@@ -69,6 +69,8 @@ export class FcDatePicker extends DatePicker {
             }
         }
     };
+    
+    this.inputElement.addEventListener('focus', ()=>this.__focused=true);
   }
   
   refreshAll() {
@@ -156,7 +158,17 @@ export class FcDatePicker extends DatePicker {
                            .replaceAll('1','M')
                            .replaceAll('2','D')
                            .replaceAll('3','Y');
-      const part = format.replace(new RegExp(`^([DMY]+[^DMY]){${index}}`),'')[0];
+      let part;
+      if (this.__focused) {
+        part = format.replace(new RegExp(`^([DMY]+[^DMY]){${index}}`),'')[0];
+      } else {
+        part = 'D';
+        // find the index where D start
+        index = 0;
+        for (let i=0;i<format.length && format[i]!=part;i++) {
+          if (!format[i].match(/[0-9]/)) index++;
+        }
+      }
       
       const incrementComponent = (date, part, delta) => {
           // Adjusts the specified component (year, month, or day) by the given delta,
