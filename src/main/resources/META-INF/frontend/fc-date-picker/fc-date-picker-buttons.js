@@ -29,12 +29,12 @@ export class FcDatePickerButtons extends ThemableMixin(LitElement) {
     return html`
        <div id="up">
           <button type="button"
-                  aria-label="Increment"
+                  tabindex="-1"
                   @click=${this._clickUp}></button>
        </div>
        <div id="down">
           <button type="button"
-                  aria-label="Decrement"
+                  tabindex="-1"
                   @click=${this._clickDown}></button>
        </div>
     `;
