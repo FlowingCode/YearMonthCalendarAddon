@@ -97,7 +97,7 @@ export class FcDatePicker extends DatePicker {
     };
  
     const _getStyle = month => {
-        const tostr = date => date.toISOString().substr(0,7);
+        const tostr = date => this._formatISO(date).substr(0,7);
         const add   = (date, delta) => new Date(date.getFullYear(), date.getMonth()+delta, 1);
         
         const key = tostr(month);
