@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,8 @@
  */
 package com.flowingcode.addons.ycalendar;
 
+import com.flowingcode.vaadin.jsonmigration.JsonMigration;
+import com.flowingcode.vaadin.jsonmigration.JsonSerializer;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -26,16 +28,17 @@ import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.function.SerializableConsumer;
-import com.vaadin.flow.internal.JsonSerializer;
 import com.vaadin.flow.shared.Registration;
 import elemental.json.JsonObject;
 import java.util.Objects;
+import lombok.experimental.ExtensionMethod;
 
 /**
  * A base abstract class for calendar components, with additional methods used for i18n initialization
  * and listener registration.
  */
 @SuppressWarnings("serial")
+@ExtensionMethod(JsonMigration.class)
 public abstract class AbstractCalendarComponent<COMPONENT extends Component> extends Component {
 
   private DatePickerI18n i18n;
