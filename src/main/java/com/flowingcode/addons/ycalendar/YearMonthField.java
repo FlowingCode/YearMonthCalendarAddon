@@ -19,22 +19,25 @@
  */
 package com.flowingcode.addons.ycalendar;
 
+import com.flowingcode.vaadin.jsonmigration.JsonMigration;
+import com.flowingcode.vaadin.jsonmigration.JsonSerializer;
 import com.vaadin.flow.component.AbstractSinglePropertyField;
 import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.function.SerializableFunction;
-import com.vaadin.flow.internal.JsonSerializer;
 import elemental.json.Json;
 import elemental.json.JsonValue;
 import java.time.YearMonth;
 import java.util.Objects;
 import java.util.Optional;
+import lombok.experimental.ExtensionMethod;
 
 @SuppressWarnings("serial")
 @Tag("fc-year-month-field")
 @JsModule("./fc-year-month-field/fc-year-month-field.js")
+@ExtensionMethod(JsonMigration.class)
 public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, YearMonth>
     implements HasTheme {
 
