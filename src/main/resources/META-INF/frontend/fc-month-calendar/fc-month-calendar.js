@@ -113,33 +113,34 @@ export class FcMonthCalendarElement extends MonthCalendarMixin {
     e.forEach(item => item.removeAttribute('class'));
   }
 
-  ready() {
-    super.ready();
-    let styles = `
-        [part='date'][class]::before { 
-          box-shadow: none;
-        }
-        
-        [part='date'][selected] {
-          color: unset;
-        }
-        
-        [part='date'][selected]::before {
-          background-color: unset;  
-          border: 1px solid var(--lumo-primary-color);
-        }
-
-        [part~=month-header] {
-          display: var(--__month-calendar-header-display, block);
-        }
-    `;
-        
-    this.$.element.shadowRoot.querySelector("style").innerHTML+=styles;
-  }
-
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener("selected-date-changed",this._onSelectedDateChanged);    
+    const updateComplete = this.$.element.updateComplete || Promise.resolve(); 
+    updateComplete.then(()=>{
+      if (!this.$.element.shadowRoot.querySelectorAll("style[data='fc-component-styles']").length) {
+        let style = document.createElement("style");
+        style.setAttribute("data","fc-component-styles");
+        style.innerHTML+=`
+          [part='date'][class]::before { 
+            box-shadow: none;
+          }
+          
+          [part='date'][selected] {
+            color: unset;
+          }
+          
+          [part='date'][selected]::before {
+            background-color: unset;  
+            border: 1px solid var(--lumo-primary-color);
+          }
+        
+          [part~=month-header] {
+            display: var(--__month-calendar-header-display, block);
+          }`;
+         this.$.element.shadowRoot.append(style);
+      }
+    });
   }
     
   disconnectedCallback() {
