@@ -52,31 +52,32 @@ export class FcDatePicker extends DatePicker {
     
     this._styles={};
     
-    this._overlayElement.renderer = e => {
-        this._boundOverlayRenderer.call(this,e);
-        
-        if (!this._overlayContent._monthScroller.__fcWrapped) {
-            const createElement = this._overlayContent._monthScroller._createElement;
-            this._overlayContent._monthScroller.__fcWrapped = true;
-            this._overlayContent._monthScroller._createElement = () => {
-                var calendar = createElement();
-                calendar.addEventListener('dom-change',ev=>{
-                    if (ev.composedPath()[0].as=='week') {
-                        setTimeout(()=> this._updateMonthStyles(calendar));
-                    }
-                });
-                return calendar; 
+    if (this._boundOverlayRenderer) {
+        this._overlayElement.renderer = e => {
+            this._boundOverlayRenderer.call(this,e);
+            
+            if (!this._overlayContent._monthScroller.__fcWrapped) {
+                const createElement = this._overlayContent._monthScroller._createElement;
+                this._overlayContent._monthScroller.__fcWrapped = true;
+                this._overlayContent._monthScroller._createElement = () => {
+                    var calendar = createElement();
+                    calendar.addEventListener('dom-change',ev=>{
+                        if (ev.composedPath()[0].as=='week') {
+                            setTimeout(()=> this._updateMonthStyles(calendar));
+                        }
+                    });
+                    return calendar;
+                }
             }
-        }
-    };
-    
-    this.inputElement.addEventListener('focus', ()=>this.__focused=true);
+        };
+    }
   }
   
   refreshAll() {
     this._styles = {};
-    if (this._overlayContent) {
-        this._overlayContent._monthScroller.querySelectorAll("vaadin-month-calendar").forEach(calendar=>this._updateMonthStyles(calendar));
+    const overlayContent = this._overlayContent;
+    if (overlayContent) {
+        overlayContent._monthScroller.querySelectorAll("vaadin-month-calendar").forEach(calendar=>this._updateMonthStyles(calendar));
     }
   }
   
