@@ -19,6 +19,7 @@
  */
 package com.flowingcode.addons.ycalendar;
 
+import com.flowingcode.vaadin.jsonmigration.JsonMigration;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -88,7 +89,7 @@ public class ExtendedDatePicker extends DatePicker {
       String key = m.toString();
       getStyles(m).ifPresent(styles -> result.put(key, styles));
     }
-    return result;
+    return JsonMigration.convertToClientCallableResult(result);
   }
 
   private Optional<JsonObject> getStyles(YearMonth yearMonth) {
