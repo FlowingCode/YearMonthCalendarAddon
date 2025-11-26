@@ -70,12 +70,34 @@ export class FcDatePicker extends DatePicker {
                 }
             }
         };
+    } else {
+        this.inputElement.addEventListener('focus', ()=>this.__focused=true);
+    
+        const self=this;
+        this.addEventListener('opened-changed', ev=>{
+            if (ev.detail.value && !self._overlayContent._monthScroller.__fcWrapped) {
+                this._overlayContent._monthScroller.__fcWrapped = true;
+                const updateElement = self._overlayContent._monthScroller._updateElement;
+                self._overlayContent._monthScroller._updateElement = (element, index) => {
+                    updateElement(element,index);
+                    if (element instanceof HTMLElement) {
+                        this._updateMonthStyles(element);
+                    }
+                };
+                const createElement = self._overlayContent._monthScroller._createElement;
+                self._overlayContent._monthScroller._createElement = () => {
+                    var calendar = createElement();
+                    setTimeout(()=>this._updateMonthStyles(calendar));
+                    return calendar;
+                };
+            }
+        });
     }
   }
   
   refreshAll() {
     this._styles = {};
-    const overlayContent = this._overlayContent;
+    const overlayContent = this._overlayContent || this.querySelector("vaadin-date-picker-overlay-content");
     if (overlayContent) {
         overlayContent._monthScroller.querySelectorAll("vaadin-month-calendar").forEach(calendar=>this._updateMonthStyles(calendar));
     }
