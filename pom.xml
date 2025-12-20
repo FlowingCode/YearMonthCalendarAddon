@@ -523,30 +523,6 @@
 				<maven.compiler.target>21</maven.compiler.target>
 				<vaadin.version>25.0.0-beta5</vaadin.version>
 			</properties>
-			<repositories>
-				<repository>
-					<id>vaadin-prerelease</id>
-					<url>https://maven.vaadin.com/vaadin-prereleases</url>
-				</repository>
-				<repository>
-					<id>FlowingCode Snapshots</id>
-					<url>https://maven.flowingcode.com/snapshots</url>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-					<releases>
-						<enabled>false</enabled>
-					</releases>
-				</repository>
-			</repositories>
-			
-			<pluginRepositories>
-				<pluginRepository>
-					<id>vaadin-prerelease</id>
-					<url>https://maven.vaadin.com/vaadin-prereleases</url>
-				</pluginRepository>
-			</pluginRepositories> 
-
 		</profile>
 	</profiles>
 
