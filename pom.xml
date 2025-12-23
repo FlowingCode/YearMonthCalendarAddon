@@ -521,7 +521,7 @@
 			<properties>
 				<maven.compiler.source>21</maven.compiler.source>
 				<maven.compiler.target>21</maven.compiler.target>
-				<vaadin.version>25.0.0-beta5</vaadin.version>
+				<vaadin.version>25.0.0</vaadin.version>
 			</properties>
 			<dependencies>
 				<dependency>
