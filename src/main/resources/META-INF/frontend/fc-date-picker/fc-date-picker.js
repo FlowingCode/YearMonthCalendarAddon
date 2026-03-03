@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2025 Flowing Code
+ * Copyright (C) 2021 - 2026 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,6 +77,9 @@ export class FcDatePicker extends DatePicker {
         this.addEventListener('opened-changed', ev=>{
             if (ev.detail.value && !self._overlayContent._monthScroller.__fcWrapped) {
                 this._overlayContent._monthScroller.__fcWrapped = true;
+                if (this._overlayContent._set_theme) {
+                    this._overlayContent._set_theme("fc-month-calendar");
+                }
                 const updateElement = self._overlayContent._monthScroller._updateElement;
                 self._overlayContent._monthScroller._updateElement = (element, index) => {
                     updateElement(element,index);
