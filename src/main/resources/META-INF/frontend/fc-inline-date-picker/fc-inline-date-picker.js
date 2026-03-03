@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2025 Flowing Code
+ * Copyright (C) 2021 - 2026 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -86,7 +86,8 @@ export class InlineDatePicker extends LitElement {
     return html`
       <fc-year-month-field .date="${this.displayDate}" @value-changed="${this.__onDisplayMonthChange}"></fc-year-month-field>
       <fc-month-calendar   .month="${this.displayDate}" @date-selected="${this.__onDateSelected}" 
-      	.showWeekNumbers="${this.showWeekNumbers ? this.showWeekNumbers : undefined}"></fc-year-month-field>
+        .showWeekNumbers="${this.showWeekNumbers ? this.showWeekNumbers : undefined}"
+        theme="fc-month-calendar"></fc-month-calendar>
     `;
   }
 

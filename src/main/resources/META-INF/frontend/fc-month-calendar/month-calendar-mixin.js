@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2025 Flowing Code
+ * Copyright (C) 2021 - 2026 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,7 +117,7 @@ export class MonthCalendarMixin extends ShadowFocusMixin(ThemableMixin(PolymerEl
               max-date="[[maxDate]]"
               focused$="[[_focused]]"
               part="month"
-              theme$="[[theme]]"
+              theme$="fc-month-calendar [[theme]]"
               on-key-down="_onKeyDown"
             >
             </vaadin-month-calendar>

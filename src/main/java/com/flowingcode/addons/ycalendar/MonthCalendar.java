@@ -2,7 +2,7 @@
  * #%L
  * Year Month Calendar Add-on
  * %%
- * Copyright (C) 2021 - 2025 Flowing Code
+ * Copyright (C) 2021 - 2026 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.dependency.Uses;
@@ -41,6 +42,8 @@ import java.util.stream.IntStream;
 @NpmPackage(value = "@polymer/iron-a11y-keys-behavior", version = "3.0.1")
 @Uses(DatePicker.class)
 @SuppressWarnings("serial")
+@CssImport(value = "./fc-month-calendar/vaadin-month-calendar.css",
+    themeFor = "vaadin-month-calendar")
 public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> implements HasSize, HasTheme {
 
   private YearMonth yearMonth;
