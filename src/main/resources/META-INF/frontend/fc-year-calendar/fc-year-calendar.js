@@ -207,7 +207,7 @@ export class FcYearCalendarElement extends ThemableMixin(PolymerElement) {
       const children   = monthCalendars();
       const baseOffset = children[0].offsetTop;
       const breakIndex = children.findIndex(item => item.offsetTop > baseOffset);
-      return (breakIndex === -1 ? grid.length : breakIndex);       
+      return (breakIndex === -1 ? children.length : breakIndex);
     };
     
     const adjustDateByHorizontalOffset = (offset) => {    
