@@ -103,7 +103,6 @@ public class MonthCalendar extends AbstractCalendarComponent<MonthCalendar> impl
    */
   public void setYearMonth(YearMonth yearMonth) {
     this.yearMonth = Objects.requireNonNull(yearMonth);
-    this.yearMonth = Objects.requireNonNull(yearMonth);
     String script = "this.month=new Date($0,$1-1,1);";
     getElement().executeJs(script, yearMonth.getYear(), yearMonth.getMonthValue());
     refreshAll();
