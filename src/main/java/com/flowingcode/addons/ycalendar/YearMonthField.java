@@ -51,7 +51,7 @@ public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, 
   }
 
   /** Constructs a new YearMonthField initializing its value to the current year and month. */
-  public <P> YearMonthField() {
+  public YearMonthField() {
     super(VALUE_PROPERTY, null, String.class, map(YearMonth::parse), map(YearMonth::toString));
     setValue(YearMonth.now());
   }  
