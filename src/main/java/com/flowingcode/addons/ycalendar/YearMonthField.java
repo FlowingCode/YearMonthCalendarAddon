@@ -28,6 +28,7 @@ import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.function.SerializableFunction;
 import elemental.json.Json;
+import elemental.json.JsonObject;
 import elemental.json.JsonValue;
 import java.time.YearMonth;
 import java.util.Objects;
@@ -73,8 +74,15 @@ public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, 
    *        remove any minimum constraints
    */
   public void setMin(YearMonth min) {
-    JsonValue value = min == null ? Json.createNull()
-        : Json.parse("{'month': " + min.getMonth().ordinal() + ", 'year': " + min.getYear() + "}");
+    JsonValue value;
+    if (min == null) {
+      value = Json.createNull();
+    } else {
+      JsonObject obj = Json.createObject();
+      obj.put("month", min.getMonth().ordinal());
+      obj.put("year", min.getYear());
+      value = obj;
+    }
     getElement().setPropertyJson("min", value);
     this.min = min;
   }
@@ -96,8 +104,15 @@ public class YearMonthField extends AbstractSinglePropertyField<YearMonthField, 
    *        remove any maximum constraints
    */
   public void setMax(YearMonth max) {
-    JsonValue value = max == null ? Json.createNull()
-        : Json.parse("{'month': " + max.getMonth().ordinal() + ", 'year': " + max.getYear() + "}");
+    JsonValue value;
+    if (max == null) {
+      value = Json.createNull();
+    } else {
+      JsonObject obj = Json.createObject();
+      obj.put("month", max.getMonth().ordinal());
+      obj.put("year", max.getYear());
+      value = obj;
+    }
     getElement().setPropertyJson("max", value);
     this.max = max;
   }
