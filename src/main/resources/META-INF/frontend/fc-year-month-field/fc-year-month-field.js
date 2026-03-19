@@ -92,7 +92,7 @@ export class YearMonthField extends LitElement {
 	  if (this.min && intValue < this._minAsNumber){
 		  this.value = this.min.year + '-' + String(this.min.month + 1).padStart(2, '0');
 		  this.date = new Date(this.min.year, this.min.month);
-	  } if (this.max && intValue > this._maxAsNumber){
+	  } else if (this.max && intValue > this._maxAsNumber){
           this.value = this.max.year + '-' + String(this.max.month + 1).padStart(2, '0');
           this.date = new Date(this.max.year, this.max.month);
 	  } else {
