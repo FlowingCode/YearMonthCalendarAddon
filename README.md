@@ -13,6 +13,13 @@ Full year / month calendar for Vaadin 22+
 * Selection listener
 * Responsive layout
 
+## Supported versions
+
+| Vaadin Version | Add-on Version |
+|---|---|
+| 24-25 | 4.x |
+| 23 | 2 |
+
 ## Online demo
 
 [Online demo here](http://addonsv23.flowingcode.com/year-month-calendar)
