@@ -7,6 +7,7 @@
 	<version>4.6.2-SNAPSHOT</version>
 	<name>Year Month Calendar Add-on</name>
 	<description>Year Month Calendar Add-on for Vaadin Flow</description>
+	<url>https://www.flowingcode.com/en/open-source/</url>
 
 	<properties>
 		<vaadin.version>24.9.5</vaadin.version>
