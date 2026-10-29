@@ -24,7 +24,7 @@
   }
 
   [part~='date'][part~='selected']::before {
-    background: var(--vaadin-date-picker-date-selected-background, var(--vaadin-text-color, var(--_selection-color)));
+    background: var(--vaadin-date-picker-date-selected-background, var(--_selection-color, var(--vaadin-text-color)));
   }
 
   [part~='date']:not(:empty):not([part~='disabled']):not([part~='selected']):hover::before {
