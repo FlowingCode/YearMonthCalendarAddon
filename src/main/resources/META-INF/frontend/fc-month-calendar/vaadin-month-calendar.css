@@ -28,7 +28,7 @@
   }
 
   [part~='date']:not(:empty):not([part~='disabled']):not([part~='selected']):hover::before {
-    background-color: var(--lumo-primary-color-10pct, var(--aura-background-color));
+    background-color: var(--hover-background-color, var(--lumo-primary-color-10pct, var(--aura-background-color)));
   }
 
   [part~='date']::after {

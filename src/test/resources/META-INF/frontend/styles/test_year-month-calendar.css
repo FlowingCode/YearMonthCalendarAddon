@@ -20,6 +20,7 @@
 [part~='date'].holiday {
   color: var(--lumo-error-contrast-color, white);
   --background-color: var(--lumo-error-color, #e00);
+  --hover-background-color: var(--lumo-error-text-color, #b00);
 }
 
 [part~='date'].weekend {
