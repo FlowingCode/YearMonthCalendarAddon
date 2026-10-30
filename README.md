@@ -115,6 +115,24 @@ calendar.setClassNameGenerator(date -> {
 });
 ```
 
+## Styling dates
+
+Dates are rendered inside `vaadin-month-calendar`, so the styles for the class names returned by the `ClassNameGenerator` must be imported with `themeFor`:
+
+```
+@CssImport(value = "./styles/calendar-styles.css", themeFor = "vaadin-month-calendar")
+```
+
+The background of a date is set through the `--background-color` custom property, and its background on hover through `--hover-background-color`:
+
+```
+[part~='date'].holiday {
+  color: white;
+  --background-color: red;
+  --hover-background-color: darkred;
+}
+```
+
 ## Special configuration when using Spring
 
 By default, Vaadin Flow only includes ```com/vaadin/flow/component``` to be always scanned for UI components and views. For this reason, the addon might need to be whitelisted in order to display correctly. 
