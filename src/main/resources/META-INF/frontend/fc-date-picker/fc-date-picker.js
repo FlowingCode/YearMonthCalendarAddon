@@ -74,7 +74,7 @@ export class FcDatePicker extends DatePicker {
                 const createElement = this._overlayContent._monthScroller._createElement;
                 this._overlayContent._monthScroller.__fcWrapped = true;
                 this._overlayContent._monthScroller._createElement = () => {
-                    var calendar = createElement();
+                    const calendar = createElement();
                     calendar.addEventListener('dom-change',ev=>{
                         if (ev.composedPath()[0].as=='week') {
                             setTimeout(()=> this._updateMonthStyles(calendar));
@@ -102,7 +102,7 @@ export class FcDatePicker extends DatePicker {
                 };
                 const createElement = this._overlayContent._monthScroller._createElement;
                 this._overlayContent._monthScroller._createElement = () => {
-                    var calendar = createElement();
+                    const calendar = createElement();
                     setTimeout(()=>this._updateMonthStyles(calendar));
                     return calendar;
                 };
