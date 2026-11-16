@@ -87,22 +87,21 @@ export class FcDatePicker extends DatePicker {
     } else {
         this.inputElement.addEventListener('focus', ()=>this.__focused=true);
     
-        const self=this;
         this.addEventListener('opened-changed', ev=>{
-            if (ev.detail.value && !self._overlayContent._monthScroller.__fcWrapped) {
+            if (ev.detail.value && !this._overlayContent._monthScroller.__fcWrapped) {
                 this._overlayContent._monthScroller.__fcWrapped = true;
                 if (this._overlayContent._set_theme) {
                     this._overlayContent._set_theme("fc-month-calendar");
                 }
-                const updateElement = self._overlayContent._monthScroller._updateElement;
-                self._overlayContent._monthScroller._updateElement = (element, index) => {
+                const updateElement = this._overlayContent._monthScroller._updateElement;
+                this._overlayContent._monthScroller._updateElement = (element, index) => {
                     updateElement(element,index);
                     if (element instanceof HTMLElement) {
                         this._updateMonthStyles(element);
                     }
                 };
-                const createElement = self._overlayContent._monthScroller._createElement;
-                self._overlayContent._monthScroller._createElement = () => {
+                const createElement = this._overlayContent._monthScroller._createElement;
+                this._overlayContent._monthScroller._createElement = () => {
                     var calendar = createElement();
                     setTimeout(()=>this._updateMonthStyles(calendar));
                     return calendar;
