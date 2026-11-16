@@ -22,6 +22,20 @@ import { html } from '@polymer/polymer/polymer-element.js';
 import { defineCustomElement } from '@vaadin/component-base/src/define.js';
 import './fc-date-picker-buttons.js';
 
+function clearStyles(calendar) {
+    const e = calendar.shadowRoot.querySelectorAll("[part~='date']");
+    e.forEach(item => item.removeAttribute('class'));
+}
+
+function setStyleForDay(calendar, i, className) {
+    const e = calendar.shadowRoot.querySelectorAll("[part~='date']:not(:empty)")[i-1];
+    if (className) {
+        e.className=className;
+    } else {
+        e.removeAttribute('class');
+    }
+}
+
 export class FcDatePicker extends DatePicker {
   static get is() {
     return 'fc-date-picker';
@@ -107,21 +121,7 @@ export class FcDatePicker extends DatePicker {
   }
   
   _updateMonthStyles(element) {
-    
-    const _clearStyles = function() { 
-        let e = this.shadowRoot.querySelectorAll("[part~='date']");
-        e.forEach(item => item.removeAttribute('class'));
-    };
- 
-    const _setStyleForDay = function(i,className) {
-        let e = this.shadowRoot.querySelectorAll("[part~='date']:not(:empty)")[i-1];
-        if (className) {
-            e.className=className;
-        } else {
-            e.removeAttribute('class');
-        }
-    };
- 
+
     const _getStyle = month => {
         const tostr = date => this._formatISO(date).substr(0,7);
         const add   = (date, delta) => new Date(date.getFullYear(), date.getMonth()+delta, 1);
@@ -156,11 +156,11 @@ export class FcDatePicker extends DatePicker {
     }
  
     const month = element.month;
-    _clearStyles.call(element);
+    clearStyles(element);
     _getStyle(month).then(styles=>setTimeout(()=>{
         if (element.month===month) {
             for (let i in styles) {
-                _setStyleForDay.call(element,i,styles[i]);
+                setStyleForDay(element,i,styles[i]);
             }
         }
     }));
