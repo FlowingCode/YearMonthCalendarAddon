@@ -23,7 +23,7 @@ Full year / month calendar for Vaadin 22+
 
 ## Online demo
 
-[Online demo here](http://addonsv23.flowingcode.com/year-month-calendar)
+[Online demo here](https://addonsv25.flowingcode.com/year-month-calendar)
 
 ## Download release
 
